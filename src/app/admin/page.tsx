@@ -43,7 +43,7 @@ const cars: CarType[] = [
     id: '1',
     plateNumber: 'ABC-123',
     owner: 'Company Vichels',
-    assignedDriver: 'John Doe',
+    assignedDriver: 'أحمد محمد العلي',
     gpsStatus: 'online',
     fuelLevel: 85,
     maintenanceStatus: 'good',
@@ -65,7 +65,7 @@ const cars: CarType[] = [
     id: '2',
     plateNumber: 'XYZ-456',
     owner: 'Company Vichels',
-    assignedDriver: 'Jane Smith',
+    assignedDriver: 'فاطمة علي الحسن',
     gpsStatus: 'offline',
     fuelLevel: 25,
     maintenanceStatus: 'due',
@@ -87,7 +87,7 @@ const cars: CarType[] = [
     id: '3',
     plateNumber: 'DEF-789',
     owner: 'Company Vichels',
-    assignedDriver: 'Mike Johnson',
+    assignedDriver: 'محمد عبدالله السعد',
     gpsStatus: 'online',
     fuelLevel: 60,
     maintenanceStatus: 'overdue',
@@ -110,34 +110,34 @@ const cars: CarType[] = [
 const drivers: Driver[] = [
   {
     id: '1',
-    name: 'John Doe',
-    email: 'john.doe@company.com',
-    phone: '+1-555-0101',
+    name: 'أحمد محمد العلي',
+    email: 'ahmed.mohamed@company.com',
+    phone: '+966-50-123-4567',
     carId: '1',
-    assignedProject: 'Project Alpha',
-    manager: 'Sarah Wilson',
+    assignedProject: 'مشروع ألفا',
+    manager: 'سارة أحمد',
     licenseExpiry: '2025-03-15',
     totalViolations: 2
   },
   {
     id: '2',
-    name: 'Jane Smith',
-    email: 'jane.smith@company.com',
-    phone: '+1-555-0102',
+    name: 'فاطمة علي الحسن',
+    email: 'fatima.ali@company.com',
+    phone: '+966-50-234-5678',
     carId: '2',
-    assignedProject: 'Project Beta',
-    manager: 'Robert Brown',
+    assignedProject: 'مشروع بيتا',
+    manager: 'عبدالرحمن خالد',
     licenseExpiry: '2024-11-20',
     totalViolations: 0
   },
   {
     id: '3',
-    name: 'Mike Johnson',
-    email: 'mike.johnson@company.com',
-    phone: '+1-555-0103',
+    name: 'محمد عبدالله السعد',
+    email: 'mohamed.abdullah@company.com',
+    phone: '+966-50-345-6789',
     carId: '3',
-    assignedProject: 'Project Gamma',
-    manager: 'Sarah Wilson',
+    assignedProject: 'مشروع جاما',
+    manager: 'سارة أحمد',
     licenseExpiry: '2024-10-05',
     totalViolations: 5
   }
@@ -147,8 +147,8 @@ const notifications: Notification[] = [
   {
     id: '1',
     type: 'insurance',
-    title: 'Insurance Expiring Soon',
-    message: 'Car DEF-789 insurance expires in 5 days',
+    title: 'انتهاء صلاحية التأمين قريباً',
+    message: 'تأمين المركبة DEF-789 ينتهي خلال 5 أيام',
     severity: 'high',
     timestamp: '2024-09-24T10:30:00Z',
     carId: '3'
@@ -156,8 +156,8 @@ const notifications: Notification[] = [
   {
     id: '2',
     type: 'maintenance',
-    title: 'Oil Change Due',
-    message: 'Car XYZ-456 needs oil change by end of month',
+    title: 'موعد تغيير الزيت',
+    message: 'المركبة XYZ-456 تحتاج تغيير زيت قبل نهاية الشهر',
     severity: 'medium',
     timestamp: '2024-09-24T09:15:00Z',
     carId: '2'
@@ -165,8 +165,8 @@ const notifications: Notification[] = [
   {
     id: '3',
     type: 'gps',
-    title: 'GPS Offline',
-    message: 'Car XYZ-456 has been offline for 2 hours',
+    title: 'GPS غير متصل',
+    message: 'المركبة XYZ-456 غير متصلة منذ ساعتين',
     severity: 'high',
     timestamp: '2024-09-24T08:00:00Z',
     carId: '2'
@@ -174,8 +174,8 @@ const notifications: Notification[] = [
   {
     id: '4',
     type: 'fuel',
-    title: 'Low Fuel Alert',
-    message: 'Car XYZ-456 fuel level is below 30%',
+    title: 'تنبيه وقود منخفض',
+    message: 'مستوى وقود المركبة XYZ-456 أقل من 30%',
     severity: 'medium',
     timestamp: '2024-09-24T07:45:00Z',
     carId: '2'
@@ -265,17 +265,17 @@ function AdminDashboardContent() {
   // Mock users data
   const users = {
     drivers: [
-      { id: '1', name: 'John Doe', email: 'john.doe@company.com', phone: '+1-555-0101', role: 'Driver', department: 'Vichels Operations', hireDate: '2023-01-15', salary: '45000', status: 'active' as const },
-      { id: '2', name: 'Jane Smith', email: 'jane.smith@company.com', phone: '+1-555-0102', role: 'Driver', department: 'Vichels Operations', hireDate: '2023-03-20', salary: '45000', status: 'active' as const },
-      { id: '3', name: 'Mike Johnson', email: 'mike.johnson@company.com', phone: '+1-555-0103', role: 'Driver', department: 'Vichels Operations', hireDate: '2022-11-10', salary: '45000', status: 'active' as const }
+      { id: '1', name: 'علي محمد الأحمد', email: 'ali.mohamed@company.com', phone: '+966-50-111-2222', role: 'سائق', department: 'عمليات المركبات', hireDate: '2023-01-15', salary: '45000', status: 'active' as const },
+      { id: '2', name: 'فاطمة عبدالرحمن السعيد', email: 'fatima.abdulrahman@company.com', phone: '+966-50-333-4444', role: 'سائق', department: 'عمليات المركبات', hireDate: '2023-03-20', salary: '45000', status: 'active' as const },
+      { id: '3', name: 'محمد خالد العتيبي', email: 'mohamed.khaled@company.com', phone: '+966-50-555-6666', role: 'سائق', department: 'عمليات المركبات', hireDate: '2022-11-10', salary: '45000', status: 'active' as const }
     ],
     finance: [
-      { id: '4', name: 'Sarah Wilson', email: 'sarah.wilson@company.com', phone: '+1-555-0201', role: 'Finance Manager', department: 'Finance', hireDate: '2022-05-01', salary: '75000', status: 'active' as const },
-      { id: '5', name: 'Robert Brown', email: 'robert.brown@company.com', phone: '+1-555-0202', role: 'Accountant', department: 'Finance', hireDate: '2023-07-15', salary: '55000', status: 'active' as const }
+      { id: '4', name: 'نورا أحمد الخالدي', email: 'nora.ahmed@company.com', phone: '+966-50-777-8888', role: 'مدير المالية', department: 'المالية', hireDate: '2022-05-01', salary: '75000', status: 'active' as const },
+      { id: '5', name: 'خالد عبدالله القحطاني', email: 'khaled.abdullah@company.com', phone: '+966-50-999-0000', role: 'محاسب', department: 'المالية', hireDate: '2023-07-15', salary: '55000', status: 'active' as const }
     ],
     maintenance: [
-      { id: '6', name: 'David Lee', email: 'david.lee@company.com', phone: '+1-555-0301', role: 'Maintenance Supervisor', department: 'Maintenance', hireDate: '2021-09-01', salary: '60000', status: 'active' as const },
-      { id: '7', name: 'Lisa Garcia', email: 'lisa.garcia@company.com', phone: '+1-555-0302', role: 'Mechanic', department: 'Maintenance', hireDate: '2023-02-10', salary: '40000', status: 'active' as const }
+      { id: '6', name: 'أحمد سعد الشمري', email: 'ahmed.saad@company.com', phone: '+966-50-111-3333', role: 'مشرف الصيانة', department: 'الصيانة', hireDate: '2021-09-01', salary: '60000', status: 'active' as const },
+      { id: '7', name: 'مريم علي الزهراني', email: 'mariam.ali@company.com', phone: '+966-50-222-4444', role: 'ميكانيكي', department: 'الصيانة', hireDate: '2023-02-10', salary: '40000', status: 'active' as const }
     ]
   };
 
@@ -349,69 +349,69 @@ function AdminDashboardContent() {
         <aside className="hidden xl:block">
           <Card className="sticky top-6">
             <CardHeader>
-              <CardTitle>Menu</CardTitle>
-              <CardDescription>Select a section</CardDescription>
+              <CardTitle>القائمة</CardTitle>
+              <CardDescription>اختر قسم</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button variant={activeView === 'overview' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('overview')}>
-                Overview
+                نظرة عامة
               </Button>
               <Button variant={activeView === 'map' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('map')}>
-                Live Vehicles Map
+                خريطة المركبات المباشرة
               </Button>
               <Button variant={activeView === 'analysis' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('analysis')}>
-                Analysis
+                التحليل
               </Button>
               <div className="pt-2">
                 <Button variant={vehiclesMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setVehiclesMenuOpen(!vehiclesMenuOpen)}>
-                  vichels
+                  المركبات
                   <span className="text-xs opacity-70">{vehiclesMenuOpen ? '▾' : '▸'}</span>
                 </Button>
                 {vehiclesMenuOpen && (
                   <div className="mt-2 space-y-2">
                     <Button variant={activeView === 'vehicles' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles')}>
-                      All Vehicles
+                      جميع المركبات
                     </Button>
                     <Button variant={activeView === 'vehicles-coupe' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-coupe')}>
-                      Coupe Cars
+                      مركبات السيدان
                     </Button>
                     <Button variant={activeView === 'vehicles-truck' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-truck')}>
-                      Truck Cars
+                      مركبات الشحن
                     </Button>
                   </div>
                 )}
               </div>
               <div className="pt-2">
                 <Button variant={driversMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setDriversMenuOpen(!driversMenuOpen)}>
-                  drivers
+                  السائقين
                   <span className="text-xs opacity-70">{driversMenuOpen ? '▾' : '▸'}</span>
                 </Button>
                 {driversMenuOpen && (
                   <div className="mt-2 space-y-2">
                     <Button variant={activeView === 'all-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('all-drivers')}>
-                      All Drivers
+                      جميع السائقين
                     </Button>
                     <Button variant={activeView === 'drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('drivers')}>
-                      Driver Management
+                      إدارة السائقين
                     </Button>
                   </div>
                 )}
               </div>
               <div className="pt-2">
                 <Button variant={usersMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setUsersMenuOpen(!usersMenuOpen)}>
-                  users managments
+                  إدارة المستخدمين
                   <span className="text-xs opacity-70">{usersMenuOpen ? '▾' : '▸'}</span>
                 </Button>
                 {usersMenuOpen && (
                   <div className="mt-2 space-y-2">
                     <Button variant={activeView === 'users-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-drivers')}>
-                      users drivers
+                      مستخدمي السائقين
                     </Button>
                     <Button variant={activeView === 'users-finance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-finance')}>
-                      finance employer
+                      موظف المالية
                     </Button>
                     <Button variant={activeView === 'users-maintenance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-maintenance')}>
-                      Maintenance worker
+                      عامل الصيانة
                     </Button>
                   </div>
                 )}
@@ -424,53 +424,53 @@ function AdminDashboardContent() {
         <div>
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Vichels Management Dashboard</h1>
-            <p className="text-gray-600 mt-2">Monitor and manage your entire vichels from one place</p>
+            <h1 className="text-3xl font-bold text-gray-900">لوحة تحكم إدارة المركبات</h1>
+            <p className="text-gray-600 mt-2">راقب وأدر مركباتك بالكامل من مكان واحد</p>
           </div>
 
           {activeView === 'overview' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Cars</CardTitle>
+              <CardTitle className="text-sm font-medium">إجمالي المركبات</CardTitle>
               <Car className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{vichelsSummary.totalCars}</div>
-              <p className="text-xs text-muted-foreground">Active vichels vehicles</p>
+              <p className="text-xs text-muted-foreground">مركبات نشطة</p>
             </CardContent>
           </Card>
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">In Maintenance</CardTitle>
+              <CardTitle className="text-sm font-medium">في الصيانة</CardTitle>
               <Settings className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-orange-600">{vichelsSummary.carsInMaintenance}</div>
-              <p className="text-xs text-muted-foreground">Cars currently serviced</p>
+              <p className="text-xs text-muted-foreground">مركبات قيد الخدمة حالياً</p>
             </CardContent>
           </Card>
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Accidents Reported</CardTitle>
+              <CardTitle className="text-sm font-medium">حوادث تم الإبلاغ عنها</CardTitle>
               <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">{vichelsSummary.accidentsReported}</div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <p className="text-xs text-muted-foreground">هذا الشهر</p>
             </CardContent>
           </Card>
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Cost</CardTitle>
+              <CardTitle className="text-sm font-medium">التكلفة الإجمالية</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">{formatCurrency(vichelsSummary.totalCostThisMonth)}</div>
-              <p className="text-xs text-muted-foreground">This month</p>
+              <p className="text-xs text-muted-foreground">هذا الشهر</p>
             </CardContent>
           </Card>
         </div>
@@ -484,21 +484,21 @@ function AdminDashboardContent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Car className="h-5 w-5" />
-                  Vichels Overview
+                  نظرة عامة على المركبات
                 </CardTitle>
-                <CardDescription>Detailed view of all vichels vehicles</CardDescription>
+                <CardDescription>عرض مفصل لجميع مركبات الشركة</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Car ID / Plate</TableHead>
-                      <TableHead>Driver</TableHead>
-                      <TableHead>GPS Status</TableHead>
-                      <TableHead>Fuel</TableHead>
-                      <TableHead>Maintenance</TableHead>
-                      <TableHead>Violations</TableHead>
-                      <TableHead>Budget</TableHead>
+                      <TableHead>رقم المركبة / اللوحة</TableHead>
+                      <TableHead>السائق</TableHead>
+                      <TableHead>حالة GPS</TableHead>
+                      <TableHead>الوقود</TableHead>
+                      <TableHead>الصيانة</TableHead>
+                      <TableHead>المخالفات</TableHead>
+                      <TableHead>الميزانية</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -546,9 +546,9 @@ function AdminDashboardContent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Bell className="h-5 w-5" />
-                  Alerts & Notifications
+                  التنبيهات والإشعارات
                 </CardTitle>
-                <CardDescription>Recent system alerts</CardDescription>
+                <CardDescription>تنبيهات النظام الأخيرة</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="max-h-96 overflow-y-auto space-y-3 pr-2">
@@ -580,7 +580,7 @@ function AdminDashboardContent() {
                     }
                   }) : (
                     <div className="text-center py-8 text-gray-500">
-                      No notifications available
+                      لا توجد إشعارات متاحة
                     </div>
                   )}
                 </div>
@@ -596,9 +596,9 @@ function AdminDashboardContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
-                Driver Management
+                إدارة السائقين
               </CardTitle>
-              <CardDescription>Active drivers and their assignments</CardDescription>
+              <CardDescription>السائقون النشطون وتخصيصاتهم</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -612,15 +612,15 @@ function AdminDashboardContent() {
                       <div>
                         <p className="font-medium">{driver.name}</p>
                         <p className="text-sm text-gray-600">{driver.assignedProject}</p>
-                        <p className="text-xs text-gray-500">Manager: {driver.manager}</p>
+                        <p className="text-xs text-gray-500">المدير: {driver.manager}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <Badge variant={driver.totalViolations > 0 ? 'destructive' : 'default'}>
-                        {driver.totalViolations} violations
+                        {driver.totalViolations} مخالفات
                       </Badge>
                       <p className="text-xs text-gray-500 mt-1">
-                        Car: {cars.find(c => c.id === driver.carId)?.plateNumber || 'N/A'}
+                        المركبة: {cars.find(c => c.id === driver.carId)?.plateNumber || 'غير متاح'}
                       </p>
                     </div>
                   </div>
@@ -633,26 +633,26 @@ function AdminDashboardContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileText className="h-5 w-5" />
-                Quick Actions
+                إجراءات سريعة
               </CardTitle>
-              <CardDescription>Manage vichels operations</CardDescription>
+              <CardDescription>إدارة عمليات المركبات</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Button className="w-full justify-start" variant="outline">
                 <Calendar className="h-4 w-4 mr-2" />
-                Schedule Maintenance
+                جدولة الصيانة
               </Button>
               <Button className="w-full justify-start" variant="outline">
                 <Users className="h-4 w-4 mr-2" />
-                Assign New Driver
+                تعيين سائق جديد
               </Button>
               <Button className="w-full justify-start" variant="outline">
                 <AlertTriangle className="h-4 w-4 mr-2" />
-                Report Incident
+                الإبلاغ عن حادث
               </Button>
               <Button className="w-full justify-start" variant="outline">
                 <Settings className="h-4 w-4 mr-2" />
-                Vichels Settings
+                إعدادات المركبات
               </Button>
             </CardContent>
           </Card>
@@ -665,9 +665,9 @@ function AdminDashboardContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5" />
-                Monthly Vichels Cost Trends
+                اتجاهات التكلفة الشهرية للمركبات
               </CardTitle>
-              <CardDescription>Track spending patterns over time</CardDescription>
+              <CardDescription>تتبع أنماط الإنفاق عبر الوقت</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -687,9 +687,9 @@ function AdminDashboardContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="h-5 w-5" />
-                KM Driven vs Idle Time
+                الكيلومترات المقطوعة مقابل وقت التوقف
               </CardTitle>
-              <CardDescription>Vehicle utilization analysis</CardDescription>
+              <CardDescription>تحليل استغلال المركبات</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -712,24 +712,24 @@ function AdminDashboardContent() {
         {activeView === 'vehicles' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Vichels Overview</h2>
-              <p className="text-gray-600">Detailed view of all vichels vehicles</p>
+              <h2 className="text-2xl font-bold text-gray-900">نظرة عامة على المركبات</h2>
+              <p className="text-gray-600">عرض مفصل لجميع مركبات الشركة</p>
             </div>
             
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Car className="h-5 w-5" />
-                  Vichels Overview
+                  نظرة عامة على المركبات
                 </CardTitle>
-                <CardDescription>Detailed view of all vichels vehicles</CardDescription>
+                <CardDescription>عرض مفصل لجميع مركبات الشركة</CardDescription>
               </CardHeader>
               <div className="px-6 pb-4">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
                     type="text"
-                    placeholder="Search by Car ID or Plate Number..."
+                    placeholder="البحث برقم المركبة أو رقم اللوحة..."
                     value={vehiclesSearchTerm}
                     onChange={(e) => setVehiclesSearchTerm(e.target.value)}
                     className="pl-10"
@@ -737,7 +737,7 @@ function AdminDashboardContent() {
                 </div>
                 {vehiclesSearchTerm && (
                   <p className="text-sm text-gray-600 mt-2">
-                    Showing {filteredCars.length} of {cars.length} vehicles
+                    عرض {filteredCars.length} من أصل {cars.length} مركبة
                   </p>
                 )}
               </div>
@@ -745,21 +745,21 @@ function AdminDashboardContent() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Car ID / Plate</TableHead>
-                      <TableHead>Driver</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>GPS Status</TableHead>
-                      <TableHead>Fuel</TableHead>
-                      <TableHead>Maintenance</TableHead>
-                      <TableHead>Violations</TableHead>
-                      <TableHead>Budget</TableHead>
+                      <TableHead>رقم المركبة / اللوحة</TableHead>
+                      <TableHead>السائق</TableHead>
+                      <TableHead>الهاتف</TableHead>
+                      <TableHead>حالة GPS</TableHead>
+                      <TableHead>الوقود</TableHead>
+                      <TableHead>الصيانة</TableHead>
+                      <TableHead>المخالفات</TableHead>
+                      <TableHead>الميزانية</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredCars.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={8} className="text-center py-8 text-gray-500">
-                          {vehiclesSearchTerm ? `No vehicles found matching "${vehiclesSearchTerm}"` : 'No vehicles available'}
+                          {vehiclesSearchTerm ? `لم يتم العثور على مركبات تطابق "${vehiclesSearchTerm}"` : 'لا توجد مركبات متاحة'}
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -827,9 +827,9 @@ function AdminDashboardContent() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MapPin className="h-5 w-5" /> Live Vehicles Map
+                <MapPin className="h-5 w-5" /> خريطة المركبات المباشرة
               </CardTitle>
-              <CardDescription>Quickly track all drivers and cars</CardDescription>
+              <CardDescription>تتبع جميع السائقين والمركبات بسرعة</CardDescription>
             </CardHeader>
             <CardContent>
               <FleetMap cars={cars
@@ -854,11 +854,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Coupe Cars</CardTitle>
-                  <CardDescription>All normal passenger cars</CardDescription>
+                  <CardTitle>مركبات السيدان</CardTitle>
+                  <CardDescription>جميع مركبات الركاب العادية</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddCoupeForm(!showAddCoupeForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add coupe car
+                  <Plus className="h-4 w-4 mr-1" /> إضافة مركبة سيدان
                 </Button>
               </div>
             </CardHeader>
@@ -866,7 +866,7 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Plate Number</label>
+                    <label className="text-xs text-gray-600">رقم اللوحة</label>
                     <input
                       type="text"
                       value={newCar.plateNumber}
@@ -876,7 +876,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Make</label>
+                    <label className="text-xs text-gray-600">الماركة</label>
                     <input
                       type="text"
                       value={newCar.make}
@@ -886,7 +886,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Model</label>
+                    <label className="text-xs text-gray-600">الموديل</label>
                     <input
                       type="text"
                       value={newCar.model}
@@ -896,7 +896,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Year</label>
+                    <label className="text-xs text-gray-600">السنة</label>
                     <input
                       type="number"
                       value={newCar.year}
@@ -906,27 +906,27 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Type</label>
+                    <label className="text-xs text-gray-600">النوع</label>
                     <select
                       value={newCar.type}
                       onChange={(e) => setNewCar({...newCar, type: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
                     >
-                      <option value="">Select type</option>
-                      <option value="Sedan">Sedan</option>
-                      <option value="Hatchback">Hatchback</option>
-                      <option value="Coupe">Coupe</option>
-                      <option value="SUV">SUV</option>
+                      <option value="">اختر النوع</option>
+                      <option value="Sedan">سيدان</option>
+                      <option value="Hatchback">هاتشباك</option>
+                      <option value="Coupe">كوبيه</option>
+                      <option value="SUV">دفع رباعي</option>
                     </select>
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Assign Driver</label>
+                    <label className="text-xs text-gray-600">تعيين سائق</label>
                     <select
                       value={newCar.assignedDriver}
                       onChange={(e) => setNewCar({...newCar, assignedDriver: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
                     >
-                      <option value="">Select a driver</option>
+                      <option value="">اختر سائقاً</option>
                       {drivers.map(driver => (
                         <option key={driver.id} value={driver.name}>{driver.name}</option>
                       ))}
@@ -938,13 +938,13 @@ function AdminDashboardContent() {
                       setShowAddCoupeForm(false);
                       setNewCar({plateNumber: '', make: '', model: '', year: '', type: '', owner: 'Company Fleet', assignedDriver: '', latitude: '', longitude: '', gpsStatus: 'online', fuelLevel: 100, maintenanceStatus: 'good', violationsCount: 0, accidentsCount: 0, budgetSpent: 0, budgetAllocated: 3000, lastServiceDate: '', insuranceExpiry: '', licenseExpiry: ''});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddCoupeForm(false);
                       setNewCar({plateNumber: '', make: '', model: '', year: '', type: '', owner: 'Company Fleet', assignedDriver: '', latitude: '', longitude: '', gpsStatus: 'online', fuelLevel: 100, maintenanceStatus: 'good', violationsCount: 0, accidentsCount: 0, budgetSpent: 0, budgetAllocated: 3000, lastServiceDate: '', insuranceExpiry: '', licenseExpiry: ''});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -961,37 +961,37 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>Vehicle & Owner</CardTitle>
-              <CardDescription>Details of selected vehicle</CardDescription>
+              <CardTitle>المركبة والمالك</CardTitle>
+              <CardDescription>تفاصيل المركبة المحددة</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const v = cars.find(c => c.id === selectedVehicleId);
                 const owner = drivers.find(d => d.carId === selectedVehicleId);
-                if (!v) return <p className="text-sm text-gray-600">Select a car to view details.</p>;
+                if (!v) return <p className="text-sm text-gray-600">اختر مركبة لعرض التفاصيل.</p>;
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <h3 className="font-semibold">Car Information</h3>
-                      <p className="text-sm">Plate: {v.plateNumber}</p>
-                      <p className="text-sm">Make/Model: {v.make} {v.model} {v.year}</p>
-                      <p className="text-sm">Type: {v.type}</p>
+                      <p className="text-sm">اللوحة: {v.plateNumber}</p>
+                      <p className="text-sm">الماركة/الموديل: {v.make} {v.model} {v.year}</p>
+                      <p className="text-sm">النوع: {v.type}</p>
                       <p className="text-sm">GPS: {v.gpsStatus}</p>
-                      <p className="text-sm">Fuel: {v.fuelLevel}%</p>
-                      <p className="text-sm">Maintenance: {v.maintenanceStatus}</p>
+                      <p className="text-sm">الوقود: {v.fuelLevel}%</p>
+                      <p className="text-sm">الصيانة: {v.maintenanceStatus}</p>
                     </div>
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Owner/Driver</h3>
+                      <h3 className="font-semibold">المالك/السائق</h3>
                       {owner ? (
                         <>
-                          <p className="text-sm">Name: {owner.name}</p>
-                          <p className="text-sm">Email: {owner.email}</p>
-                          <p className="text-sm">Phone: {owner.phone}</p>
-                          <p className="text-sm">Project: {owner.assignedProject}</p>
-                          <p className="text-sm">Manager: {owner.manager}</p>
+                          <p className="text-sm">الاسم: {owner.name}</p>
+                          <p className="text-sm">البريد الإلكتروني: {owner.email}</p>
+                          <p className="text-sm">الهاتف: {owner.phone}</p>
+                          <p className="text-sm">المشروع: {owner.assignedProject}</p>
+                          <p className="text-sm">المدير: {owner.manager}</p>
                         </>
                       ) : (
-                        <p className="text-sm text-gray-600">No owner linked.</p>
+                        <p className="text-sm text-gray-600">لا يوجد مالك مرتبط.</p>
                       )}
                     </div>
                   </div>
@@ -1009,11 +1009,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Truck Cars</CardTitle>
-                  <CardDescription>Heavy-duty and pickup vehicles</CardDescription>
+                  <CardTitle>مركبات الشحن</CardTitle>
+                  <CardDescription>مركبات ثقيلة ومركبات البيك أب</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddTruckForm(!showAddTruckForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add truck car
+                  <Plus className="h-4 w-4 mr-1" /> إضافة مركبة شحن
                 </Button>
               </div>
             </CardHeader>
@@ -1021,7 +1021,7 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Plate Number</label>
+                    <label className="text-xs text-gray-600">رقم اللوحة</label>
                     <input
                       type="text"
                       value={newCar.plateNumber}
@@ -1031,7 +1031,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Make</label>
+                    <label className="text-xs text-gray-600">الماركة</label>
                     <input
                       type="text"
                       value={newCar.make}
@@ -1041,7 +1041,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Model</label>
+                    <label className="text-xs text-gray-600">الموديل</label>
                     <input
                       type="text"
                       value={newCar.model}
@@ -1051,7 +1051,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Year</label>
+                    <label className="text-xs text-gray-600">السنة</label>
                     <input
                       type="number"
                       value={newCar.year}
@@ -1061,27 +1061,27 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Type</label>
+                    <label className="text-xs text-gray-600">النوع</label>
                     <select
                       value={newCar.type}
                       onChange={(e) => setNewCar({...newCar, type: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
                     >
-                      <option value="">Select type</option>
-                      <option value="Pickup">Pickup</option>
-                      <option value="Truck">Truck</option>
-                      <option value="Heavy Truck">Heavy Truck</option>
-                      <option value="Delivery Truck">Delivery Truck</option>
+                      <option value="">اختر النوع</option>
+                      <option value="Pickup">بيك أب</option>
+                      <option value="Truck">شاحنة</option>
+                      <option value="Heavy Truck">شاحنة ثقيلة</option>
+                      <option value="Delivery Truck">شاحنة توصيل</option>
                     </select>
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Assign Driver</label>
+                    <label className="text-xs text-gray-600">تعيين سائق</label>
                     <select
                       value={newCar.assignedDriver}
                       onChange={(e) => setNewCar({...newCar, assignedDriver: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
                     >
-                      <option value="">Select a driver</option>
+                      <option value="">اختر سائقاً</option>
                       {drivers.map(driver => (
                         <option key={driver.id} value={driver.name}>{driver.name}</option>
                       ))}
@@ -1093,13 +1093,13 @@ function AdminDashboardContent() {
                       setShowAddTruckForm(false);
                       setNewCar({plateNumber: '', make: '', model: '', year: '', type: '', owner: 'Company Fleet', assignedDriver: '', latitude: '', longitude: '', gpsStatus: 'online', fuelLevel: 100, maintenanceStatus: 'good', violationsCount: 0, accidentsCount: 0, budgetSpent: 0, budgetAllocated: 3000, lastServiceDate: '', insuranceExpiry: '', licenseExpiry: ''});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddTruckForm(false);
                       setNewCar({plateNumber: '', make: '', model: '', year: '', type: '', owner: 'Company Fleet', assignedDriver: '', latitude: '', longitude: '', gpsStatus: 'online', fuelLevel: 100, maintenanceStatus: 'good', violationsCount: 0, accidentsCount: 0, budgetSpent: 0, budgetAllocated: 3000, lastServiceDate: '', insuranceExpiry: '', licenseExpiry: ''});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -1116,37 +1116,37 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>Vehicle & Owner</CardTitle>
-              <CardDescription>Details of selected vehicle</CardDescription>
+              <CardTitle>المركبة والمالك</CardTitle>
+              <CardDescription>تفاصيل المركبة المحددة</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const v = cars.find(c => c.id === selectedVehicleId);
                 const owner = drivers.find(d => d.carId === selectedVehicleId);
-                if (!v) return <p className="text-sm text-gray-600">Select a truck to view details.</p>;
+                if (!v) return <p className="text-sm text-gray-600">اختر مركبة شحن لعرض التفاصيل.</p>;
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Truck Information</h3>
-                      <p className="text-sm">Plate: {v.plateNumber}</p>
-                      <p className="text-sm">Make/Model: {v.make} {v.model} {v.year}</p>
-                      <p className="text-sm">Type: {v.type}</p>
+                      <h3 className="font-semibold">معلومات المركبة</h3>
+                      <p className="text-sm">اللوحة: {v.plateNumber}</p>
+                      <p className="text-sm">الماركة/الموديل: {v.make} {v.model} {v.year}</p>
+                      <p className="text-sm">النوع: {v.type}</p>
                       <p className="text-sm">GPS: {v.gpsStatus}</p>
-                      <p className="text-sm">Fuel: {v.fuelLevel}%</p>
-                      <p className="text-sm">Maintenance: {v.maintenanceStatus}</p>
+                      <p className="text-sm">الوقود: {v.fuelLevel}%</p>
+                      <p className="text-sm">الصيانة: {v.maintenanceStatus}</p>
                     </div>
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Owner/Driver</h3>
+                      <h3 className="font-semibold">المالك/السائق</h3>
                       {owner ? (
                         <>
-                          <p className="text-sm">Name: {owner.name}</p>
-                          <p className="text-sm">Email: {owner.email}</p>
-                          <p className="text-sm">Phone: {owner.phone}</p>
-                          <p className="text-sm">Project: {owner.assignedProject}</p>
-                          <p className="text-sm">Manager: {owner.manager}</p>
+                          <p className="text-sm">الاسم: {owner.name}</p>
+                          <p className="text-sm">البريد الإلكتروني: {owner.email}</p>
+                          <p className="text-sm">الهاتف: {owner.phone}</p>
+                          <p className="text-sm">المشروع: {owner.assignedProject}</p>
+                          <p className="text-sm">المدير: {owner.manager}</p>
                         </>
                       ) : (
-                        <p className="text-sm text-gray-600">No owner linked.</p>
+                        <p className="text-sm text-gray-600">لا يوجد مالك مرتبط.</p>
                       )}
                     </div>
                   </div>
@@ -1162,24 +1162,24 @@ function AdminDashboardContent() {
         {activeView === 'all-drivers' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">All Drivers</h2>
-              <p className="text-gray-600">Complete overview of all drivers and their assigned vehicles</p>
+              <h2 className="text-2xl font-bold text-gray-900">جميع السائقين</h2>
+              <p className="text-gray-600">نظرة شاملة لجميع السائقين والمركبات المخصصة لهم</p>
             </div>
             
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="h-5 w-5" />
-                  Drivers Overview
+                  نظرة عامة على السائقين
                 </CardTitle>
-                <CardDescription>Detailed view of all drivers and their vehicle assignments</CardDescription>
+                <CardDescription>عرض مفصل لجميع السائقين وتخصيصات المركبات</CardDescription>
               </CardHeader>
               <div className="px-6 pb-4">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
                     type="text"
-                    placeholder="Search by Driver ID, Name, Email, or Phone..."
+                    placeholder="البحث برقم السائق، الاسم، البريد الإلكتروني، أو الهاتف..."
                     value={driversSearchTerm}
                     onChange={(e) => setDriversSearchTerm(e.target.value)}
                     className="pl-10"
@@ -1187,7 +1187,7 @@ function AdminDashboardContent() {
                 </div>
                 {driversSearchTerm && (
                   <p className="text-sm text-gray-600 mt-2">
-                    Showing {filteredDrivers.length} of {drivers.length} drivers
+                    عرض {filteredDrivers.length} من أصل {drivers.length} سائق
                   </p>
                 )}
               </div>
@@ -1196,22 +1196,21 @@ function AdminDashboardContent() {
                   <Table className="text-sm">
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-16">ID</TableHead>
-                        <TableHead className="w-32">Name</TableHead>
-                        <TableHead className="w-28">Phone</TableHead>
-                        <TableHead className="w-40">Email</TableHead>
-                        <TableHead className="w-24">Vehicle</TableHead>
-                        <TableHead className="w-24">Project</TableHead>
-                        <TableHead className="w-24">Manager</TableHead>
-                        <TableHead className="w-20">Expiry</TableHead>
-                        <TableHead className="w-16">Violations</TableHead>
+                        <TableHead className="w-16">الرقم</TableHead>
+                        <TableHead className="w-32">الاسم</TableHead>
+                        <TableHead className="w-28">الهاتف</TableHead>
+                        <TableHead className="w-40">البريد الإلكتروني</TableHead>
+                        <TableHead className="w-24">المركبة</TableHead>
+                        <TableHead className="w-28 text-center">المدير</TableHead>
+                        <TableHead className="w-20">انتهاء الصلاحية</TableHead>
+                        <TableHead className="w-16">المخالفات</TableHead>
                       </TableRow>
                     </TableHeader>
                   <TableBody>
                     {filteredDrivers.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={9} className="text-center py-8 text-gray-500">
-                          {driversSearchTerm ? `No drivers found matching "${driversSearchTerm}"` : 'No drivers available'}
+                        <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                          {driversSearchTerm ? `لم يتم العثور على سائقين يطابقون "${driversSearchTerm}"` : 'لا توجد سائقين متاحين'}
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -1244,13 +1243,10 @@ function AdminDashboardContent() {
                                   {assignedCar.plateNumber}
                                 </Link>
                               ) : (
-                                <span className="text-gray-500 text-xs">No vehicle</span>
+                                <span className="text-gray-500 text-xs">لا توجد مركبة</span>
                               )}
                             </TableCell>
-                            <TableCell className="text-xs truncate">
-                              {driver.assignedProject}
-                            </TableCell>
-                            <TableCell className="text-xs truncate">
+                            <TableCell className="text-xs text-center">
                               {driver.manager}
                             </TableCell>
                             <TableCell>
@@ -1281,11 +1277,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Drivers</CardTitle>
-                  <CardDescription>All drivers in the vichels</CardDescription>
+                  <CardTitle>السائقون</CardTitle>
+                  <CardDescription>جميع السائقين في المركبات</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddDriverForm(!showAddDriverForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add driver
+                  <Plus className="h-4 w-4 mr-1" /> إضافة سائق
                 </Button>
               </div>
             </CardHeader>
@@ -1293,7 +1289,7 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Name</label>
+                    <label className="text-xs text-gray-600">الاسم</label>
                     <input
                       type="text"
                       value={newDriver.name}
@@ -1303,7 +1299,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Email</label>
+                    <label className="text-xs text-gray-600">البريد الإلكتروني</label>
                     <input
                       type="email"
                       value={newDriver.email}
@@ -1313,7 +1309,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Phone</label>
+                    <label className="text-xs text-gray-600">الهاتف</label>
                     <input
                       type="tel"
                       value={newDriver.phone}
@@ -1371,13 +1367,13 @@ function AdminDashboardContent() {
                       setShowAddDriverForm(false);
                       setNewDriver({name: '', email: '', phone: '', assignedProject: '', manager: '', licenseExpiry: '', carId: ''});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddDriverForm(false);
                       setNewDriver({name: '', email: '', phone: '', assignedProject: '', manager: '', licenseExpiry: '', carId: ''});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -1394,13 +1390,13 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>Driver Details</CardTitle>
-              <CardDescription>Driver and assigned vehicle info</CardDescription>
+              <CardTitle>تفاصيل السائق</CardTitle>
+              <CardDescription>معلومات السائق والمركبة المخصصة</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const driver = drivers.find(dr => dr.id === selectedDriverId);
-                if (!driver) return <p className="text-sm text-gray-600">Select a driver to view details.</p>;
+                if (!driver) return <p className="text-sm text-gray-600">اختر سائقاً لعرض التفاصيل.</p>;
                 const vehicle = cars.find(c => c.id === driver.carId);
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1418,8 +1414,8 @@ function AdminDashboardContent() {
                       <h3 className="font-semibold">Assigned Vehicle</h3>
                       {vehicle ? (
                         <>
-                          <p className="text-sm">Plate: {vehicle.plateNumber}</p>
-                          <p className="text-sm">Type: {vehicle.type}</p>
+                          <p className="text-sm">اللوحة: {vehicle.plateNumber}</p>
+                          <p className="text-sm">النوع: {vehicle.type}</p>
                           <p className="text-sm">Make/Model: {vehicle.make} {vehicle.model} {vehicle.year}</p>
                           <p className="text-sm">GPS: {vehicle.gpsStatus}</p>
                           <p className="text-sm">Fuel: {vehicle.fuelLevel}%</p>
@@ -1444,11 +1440,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Users Drivers</CardTitle>
-                  <CardDescription>Manage driver employees</CardDescription>
+                  <CardTitle>مستخدمي السائقين</CardTitle>
+                  <CardDescription>إدارة موظفي السائقين</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddUserForm(!showAddUserForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add user
+                  <Plus className="h-4 w-4 mr-1" /> إضافة مستخدم
                 </Button>
               </div>
             </CardHeader>
@@ -1456,27 +1452,27 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Name</label>
+                    <label className="text-xs text-gray-600">الاسم</label>
                     <input
                       type="text"
                       value={newUser.name}
                       onChange={(e) => setNewUser({...newUser, name: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Employee name"
+                      placeholder="اسم الموظف"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Email</label>
+                    <label className="text-xs text-gray-600">البريد الإلكتروني</label>
                     <input
                       type="email"
                       value={newUser.email}
                       onChange={(e) => setNewUser({...newUser, email: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="employee@company.com"
+                      placeholder="موظف@الشركة.com"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Phone</label>
+                    <label className="text-xs text-gray-600">الهاتف</label>
                     <input
                       type="tel"
                       value={newUser.phone}
@@ -1486,27 +1482,27 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Role</label>
+                    <label className="text-xs text-gray-600">الدور</label>
                     <input
                       type="text"
                       value={newUser.role}
                       onChange={(e) => setNewUser({...newUser, role: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Driver"
+                      placeholder="سائق"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Department</label>
+                    <label className="text-xs text-gray-600">القسم</label>
                     <input
                       type="text"
                       value={newUser.department}
                       onChange={(e) => setNewUser({...newUser, department: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Vichels Operations"
+                      placeholder="عمليات المركبات"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Hire Date</label>
+                    <label className="text-xs text-gray-600">تاريخ التوظيف</label>
                     <input
                       type="date"
                       value={newUser.hireDate}
@@ -1515,7 +1511,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Salary</label>
+                    <label className="text-xs text-gray-600">الراتب</label>
                     <input
                       type="number"
                       value={newUser.salary}
@@ -1530,13 +1526,13 @@ function AdminDashboardContent() {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -1553,25 +1549,25 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>User Details</CardTitle>
-              <CardDescription>Employee information and actions</CardDescription>
+              <CardTitle>تفاصيل المستخدم</CardTitle>
+              <CardDescription>معلومات الموظف والإجراءات</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const user = users.drivers.find(u => u.id === selectedUserId);
-                if (!user) return <p className="text-sm text-gray-600">Select a user to view details.</p>;
+                if (!user) return <p className="text-sm text-gray-600">اختر مستخدماً لعرض التفاصيل.</p>;
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Personal Information</h3>
-                      <p className="text-sm">Name: {user.name}</p>
-                      <p className="text-sm">Email: {user.email}</p>
-                      <p className="text-sm">Phone: {user.phone}</p>
-                      <p className="text-sm">Role: {user.role}</p>
-                      <p className="text-sm">Department: {user.department}</p>
-                      <p className="text-sm">Hire Date: {new Date(user.hireDate).toLocaleDateString()}</p>
-                      <p className="text-sm">Salary: {formatCurrency(parseInt(user.salary))}</p>
-                      <p className="text-sm">Status: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status}</span></p>
+                      <h3 className="font-semibold">المعلومات الشخصية</h3>
+                      <p className="text-sm">الاسم: {user.name}</p>
+                      <p className="text-sm">البريد الإلكتروني: {user.email}</p>
+                      <p className="text-sm">الهاتف: {user.phone}</p>
+                      <p className="text-sm">الدور: {user.role}</p>
+                      <p className="text-sm">القسم: {user.department}</p>
+                      <p className="text-sm">تاريخ التوظيف: {new Date(user.hireDate).toLocaleDateString()}</p>
+                      <p className="text-sm">الراتب: {formatCurrency(parseInt(user.salary))}</p>
+                      <p className="text-sm">الحالة: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status === 'active' ? 'نشط' : 'غير نشط'}</span></p>
                     </div>
                     <div className="space-y-2">
                       <h3 className="font-semibold">Actions</h3>
@@ -1596,11 +1592,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Finance Employers</CardTitle>
-                  <CardDescription>Manage finance employees</CardDescription>
+                  <CardTitle>موظفو المالية</CardTitle>
+                  <CardDescription>إدارة موظفي المالية</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddUserForm(!showAddUserForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add user
+                  <Plus className="h-4 w-4 mr-1" /> إضافة مستخدم
                 </Button>
               </div>
             </CardHeader>
@@ -1608,27 +1604,27 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Name</label>
+                    <label className="text-xs text-gray-600">الاسم</label>
                     <input
                       type="text"
                       value={newUser.name}
                       onChange={(e) => setNewUser({...newUser, name: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Employee name"
+                      placeholder="اسم الموظف"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Email</label>
+                    <label className="text-xs text-gray-600">البريد الإلكتروني</label>
                     <input
                       type="email"
                       value={newUser.email}
                       onChange={(e) => setNewUser({...newUser, email: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="employee@company.com"
+                      placeholder="موظف@الشركة.com"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Phone</label>
+                    <label className="text-xs text-gray-600">الهاتف</label>
                     <input
                       type="tel"
                       value={newUser.phone}
@@ -1638,7 +1634,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Role</label>
+                    <label className="text-xs text-gray-600">الدور</label>
                     <input
                       type="text"
                       value={newUser.role}
@@ -1648,17 +1644,17 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Department</label>
+                    <label className="text-xs text-gray-600">القسم</label>
                     <input
                       type="text"
                       value={newUser.department}
                       onChange={(e) => setNewUser({...newUser, department: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Finance"
+                      placeholder="المالية"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Hire Date</label>
+                    <label className="text-xs text-gray-600">تاريخ التوظيف</label>
                     <input
                       type="date"
                       value={newUser.hireDate}
@@ -1667,7 +1663,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Salary</label>
+                    <label className="text-xs text-gray-600">الراتب</label>
                     <input
                       type="number"
                       value={newUser.salary}
@@ -1682,13 +1678,13 @@ function AdminDashboardContent() {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -1705,25 +1701,25 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>User Details</CardTitle>
-              <CardDescription>Employee information and actions</CardDescription>
+              <CardTitle>تفاصيل المستخدم</CardTitle>
+              <CardDescription>معلومات الموظف والإجراءات</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const user = users.finance.find(u => u.id === selectedUserId);
-                if (!user) return <p className="text-sm text-gray-600">Select a user to view details.</p>;
+                if (!user) return <p className="text-sm text-gray-600">اختر مستخدماً لعرض التفاصيل.</p>;
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Personal Information</h3>
-                      <p className="text-sm">Name: {user.name}</p>
-                      <p className="text-sm">Email: {user.email}</p>
-                      <p className="text-sm">Phone: {user.phone}</p>
-                      <p className="text-sm">Role: {user.role}</p>
-                      <p className="text-sm">Department: {user.department}</p>
-                      <p className="text-sm">Hire Date: {new Date(user.hireDate).toLocaleDateString()}</p>
-                      <p className="text-sm">Salary: {formatCurrency(parseInt(user.salary))}</p>
-                      <p className="text-sm">Status: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status}</span></p>
+                      <h3 className="font-semibold">المعلومات الشخصية</h3>
+                      <p className="text-sm">الاسم: {user.name}</p>
+                      <p className="text-sm">البريد الإلكتروني: {user.email}</p>
+                      <p className="text-sm">الهاتف: {user.phone}</p>
+                      <p className="text-sm">الدور: {user.role}</p>
+                      <p className="text-sm">القسم: {user.department}</p>
+                      <p className="text-sm">تاريخ التوظيف: {new Date(user.hireDate).toLocaleDateString()}</p>
+                      <p className="text-sm">الراتب: {formatCurrency(parseInt(user.salary))}</p>
+                      <p className="text-sm">الحالة: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status === 'active' ? 'نشط' : 'غير نشط'}</span></p>
                     </div>
                     <div className="space-y-2">
                       <h3 className="font-semibold">Actions</h3>
@@ -1748,11 +1744,11 @@ function AdminDashboardContent() {
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle>Maintenance Workers</CardTitle>
-                  <CardDescription>Manage maintenance employees</CardDescription>
+                  <CardTitle>عاملو الصيانة</CardTitle>
+                  <CardDescription>إدارة عمال الصيانة</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddUserForm(!showAddUserForm)}>
-                  <Plus className="h-4 w-4 mr-1" /> add user
+                  <Plus className="h-4 w-4 mr-1" /> إضافة مستخدم
                 </Button>
               </div>
             </CardHeader>
@@ -1760,27 +1756,27 @@ function AdminDashboardContent() {
               <div className="px-6 pb-4 border-b">
                 <div className="space-y-3">
                   <div>
-                    <label className="text-xs text-gray-600">Name</label>
+                    <label className="text-xs text-gray-600">الاسم</label>
                     <input
                       type="text"
                       value={newUser.name}
                       onChange={(e) => setNewUser({...newUser, name: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Employee name"
+                      placeholder="اسم الموظف"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Email</label>
+                    <label className="text-xs text-gray-600">البريد الإلكتروني</label>
                     <input
                       type="email"
                       value={newUser.email}
                       onChange={(e) => setNewUser({...newUser, email: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="employee@company.com"
+                      placeholder="موظف@الشركة.com"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Phone</label>
+                    <label className="text-xs text-gray-600">الهاتف</label>
                     <input
                       type="tel"
                       value={newUser.phone}
@@ -1790,7 +1786,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Role</label>
+                    <label className="text-xs text-gray-600">الدور</label>
                     <input
                       type="text"
                       value={newUser.role}
@@ -1800,17 +1796,17 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Department</label>
+                    <label className="text-xs text-gray-600">القسم</label>
                     <input
                       type="text"
                       value={newUser.department}
                       onChange={(e) => setNewUser({...newUser, department: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Maintenance"
+                      placeholder="الصيانة"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Hire Date</label>
+                    <label className="text-xs text-gray-600">تاريخ التوظيف</label>
                     <input
                       type="date"
                       value={newUser.hireDate}
@@ -1819,7 +1815,7 @@ function AdminDashboardContent() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-gray-600">Salary</label>
+                    <label className="text-xs text-gray-600">الراتب</label>
                     <input
                       type="number"
                       value={newUser.salary}
@@ -1834,13 +1830,13 @@ function AdminDashboardContent() {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Save
+                      حفظ
                     </Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       setShowAddUserForm(false);
                       setNewUser({name: '', email: '', phone: '', role: '', department: '', hireDate: '', salary: '', status: 'active'});
                     }}>
-                      Cancel
+                      إلغاء
                     </Button>
                   </div>
                 </div>
@@ -1857,25 +1853,25 @@ function AdminDashboardContent() {
           </Card>
           <Card className="xl:col-span-2">
             <CardHeader>
-              <CardTitle>User Details</CardTitle>
-              <CardDescription>Employee information and actions</CardDescription>
+              <CardTitle>تفاصيل المستخدم</CardTitle>
+              <CardDescription>معلومات الموظف والإجراءات</CardDescription>
             </CardHeader>
             <CardContent>
               {(() => {
                 const user = users.maintenance.find(u => u.id === selectedUserId);
-                if (!user) return <p className="text-sm text-gray-600">Select a user to view details.</p>;
+                if (!user) return <p className="text-sm text-gray-600">اختر مستخدماً لعرض التفاصيل.</p>;
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <h3 className="font-semibold">Personal Information</h3>
-                      <p className="text-sm">Name: {user.name}</p>
-                      <p className="text-sm">Email: {user.email}</p>
-                      <p className="text-sm">Phone: {user.phone}</p>
-                      <p className="text-sm">Role: {user.role}</p>
-                      <p className="text-sm">Department: {user.department}</p>
-                      <p className="text-sm">Hire Date: {new Date(user.hireDate).toLocaleDateString()}</p>
-                      <p className="text-sm">Salary: {formatCurrency(parseInt(user.salary))}</p>
-                      <p className="text-sm">Status: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status}</span></p>
+                      <h3 className="font-semibold">المعلومات الشخصية</h3>
+                      <p className="text-sm">الاسم: {user.name}</p>
+                      <p className="text-sm">البريد الإلكتروني: {user.email}</p>
+                      <p className="text-sm">الهاتف: {user.phone}</p>
+                      <p className="text-sm">الدور: {user.role}</p>
+                      <p className="text-sm">القسم: {user.department}</p>
+                      <p className="text-sm">تاريخ التوظيف: {new Date(user.hireDate).toLocaleDateString()}</p>
+                      <p className="text-sm">الراتب: {formatCurrency(parseInt(user.salary))}</p>
+                      <p className="text-sm">الحالة: <span className={user.status === 'active' ? 'text-green-600' : 'text-red-600'}>{user.status === 'active' ? 'نشط' : 'غير نشط'}</span></p>
                     </div>
                     <div className="space-y-2">
                       <h3 className="font-semibold">Actions</h3>

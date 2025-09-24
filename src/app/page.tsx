@@ -15,12 +15,12 @@ const Page = () => {
     e.preventDefault()
     
     if (password !== confirmPassword) {
-      alert('Passwords do not match')
+      alert('كلمات المرور غير متطابقة')
       return
     }
 
     if (!email || !password) {
-      alert('Please fill in all fields')
+      alert('يرجى ملء جميع الحقول')
       return
     }
 
@@ -35,16 +35,16 @@ const Page = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-center">Admin Registration</CardTitle>
+          <CardTitle className="text-center">تسجيل المدير</CardTitle>
           <CardDescription className="text-center">
-            Create a new admin account
+            إنشاء حساب مدير جديد
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
-                Email Address
+                عنوان البريد الإلكتروني
               </label>
               <Input
                 id="email"
@@ -57,12 +57,12 @@ const Page = () => {
             </div>
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium">
-                Password
+                كلمة المرور
               </label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter password"
+                placeholder="أدخل كلمة المرور"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -70,12 +70,12 @@ const Page = () => {
             </div>
             <div className="space-y-2">
               <label htmlFor="confirmPassword" className="text-sm font-medium">
-                Confirm Password
+                تأكيد كلمة المرور
               </label>
               <Input
                 id="confirmPassword"
                 type="password"
-                placeholder="Confirm password"
+                placeholder="أكد كلمة المرور"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -84,7 +84,7 @@ const Page = () => {
           </CardContent>
           <CardFooter className="pt-6">
             <Button type="submit" className="w-full">
-              Register Admin
+              تسجيل المدير
             </Button>
           </CardFooter>
         </form>
