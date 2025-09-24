@@ -2,12 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-
-// Dynamically import the map components with SSR disabled
-const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), { ssr: false });
-const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
+import 'leaflet/dist/leaflet.css';
 
 interface CarMapProps {
   latitude: number;
@@ -16,14 +11,18 @@ interface CarMapProps {
 }
 
 function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMapProps) {
+  const [MapComponents, setMapComponents] = useState<typeof import('react-leaflet') | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
     
-    // Initialize Leaflet icons only on client side
+    // Dynamically import react-leaflet components only on client side
     if (typeof window !== 'undefined') {
-      import('leaflet').then((L) => {
+      Promise.all([
+        import('react-leaflet'),
+        import('leaflet')
+      ]).then(([reactLeaflet, L]) => {
         // Fix default icon paths for Leaflet when bundled
         // @ts-expect-error Leaflet type for private method not exposed; safe to delete prototype property
         delete L.default.Icon.Default.prototype._getIconUrl;
@@ -33,8 +32,7 @@ function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMap
           shadowUrl: '/leaflet/marker-shadow.png',
         });
 
-        // Import Leaflet CSS
-        import('leaflet/dist/leaflet.css');
+        setMapComponents(reactLeaflet);
       });
     }
   }, []);
@@ -48,7 +46,7 @@ function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMap
     }
   }, [isClient]);
 
-  if (!isClient) {
+  if (!isClient || !MapComponents) {
     return (
       <div className="h-72 w-full overflow-hidden rounded-lg border flex items-center justify-center bg-gray-100">
         <div className="text-gray-500">Loading map...</div>
@@ -56,6 +54,7 @@ function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMap
     );
   }
 
+  const { MapContainer, TileLayer, Marker, Popup } = MapComponents;
   const position: [number, number] = [latitude, longitude];
 
   return (
