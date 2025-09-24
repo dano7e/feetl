@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Car,
   Settings,
@@ -21,7 +22,8 @@ import {
   BarChart3,
   Calendar,
   FileText,
-  Plus
+  Plus,
+  Search
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import dynamic from 'next/dynamic';
@@ -217,6 +219,8 @@ function AdminDashboardContent() {
   const [showAddCoupeForm, setShowAddCoupeForm] = React.useState<boolean>(false);
   const [showAddTruckForm, setShowAddTruckForm] = React.useState<boolean>(false);
   const [showAddUserForm, setShowAddUserForm] = React.useState<boolean>(false);
+  const [vehiclesSearchTerm, setVehiclesSearchTerm] = React.useState<string>('');
+  const [driversSearchTerm, setDriversSearchTerm] = React.useState<string>('');
   const [newDriver, setNewDriver] = React.useState({
     name: '',
     email: '',
@@ -281,6 +285,34 @@ function AdminDashboardContent() {
       currency: 'USD'
     }).format(amount);
   };
+
+  // Filter cars based on search term (ID or plate number)
+  const filteredCars = React.useMemo(() => {
+    if (!vehiclesSearchTerm.trim()) {
+      return cars;
+    }
+    
+    const searchTerm = vehiclesSearchTerm.toLowerCase().trim();
+    return cars.filter(car => 
+      car.id.toLowerCase().includes(searchTerm) || 
+      car.plateNumber.toLowerCase().includes(searchTerm)
+    );
+  }, [vehiclesSearchTerm]);
+
+  // Filter drivers based on search term (ID, name, email, or phone)
+  const filteredDrivers = React.useMemo(() => {
+    if (!driversSearchTerm.trim()) {
+      return drivers;
+    }
+    
+    const searchTerm = driversSearchTerm.toLowerCase().trim();
+    return drivers.filter(driver => 
+      driver.id.toLowerCase().includes(searchTerm) || 
+      driver.name.toLowerCase().includes(searchTerm) ||
+      driver.email.toLowerCase().includes(searchTerm) ||
+      driver.phone.toLowerCase().includes(searchTerm)
+    );
+  }, [driversSearchTerm]);
 
   const getStatusBadge = (status: string, type: 'gps' | 'maintenance') => {
     if (type === 'gps') {
@@ -518,23 +550,40 @@ function AdminDashboardContent() {
                 </CardTitle>
                 <CardDescription>Recent system alerts</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`p-3 rounded-lg border ${getSeverityColor(notification.severity)}`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-medium text-sm">{notification.title}</h4>
-                        <p className="text-xs mt-1 opacity-90">{notification.message}</p>
-                        <p className="text-xs mt-2 opacity-70">
-                          {new Date(notification.timestamp).toLocaleString()}
-                        </p>
-                      </div>
+              <CardContent>
+                <div className="max-h-96 overflow-y-auto space-y-3 pr-2">
+                  {notifications && notifications.length > 0 ? notifications.map((notification) => {
+                    try {
+                      return (
+                        <div
+                          key={notification.id}
+                          className={`p-4 rounded-lg border ${getSeverityColor(notification.severity || 'low')}`}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm">{notification.title || 'No title'}</h4>
+                              <p className="text-xs mt-1 opacity-90">{notification.message || 'No message'}</p>
+                              <p className="text-xs mt-2 opacity-70">
+                                {notification.timestamp ? new Date(notification.timestamp).toLocaleDateString() : 'N/A'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } catch (error) {
+                      console.error('Error rendering notification:', error, notification);
+                      return (
+                        <div key={notification.id} className="p-4 rounded-lg border bg-gray-50">
+                          <p className="text-sm text-gray-600">Error loading notification</p>
+                        </div>
+                      );
+                    }
+                  }) : (
+                    <div className="text-center py-8 text-gray-500">
+                      No notifications available
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -675,6 +724,23 @@ function AdminDashboardContent() {
                 </CardTitle>
                 <CardDescription>Detailed view of all vichels vehicles</CardDescription>
               </CardHeader>
+              <div className="px-6 pb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search by Car ID or Plate Number..."
+                    value={vehiclesSearchTerm}
+                    onChange={(e) => setVehiclesSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                {vehiclesSearchTerm && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    Showing {filteredCars.length} of {cars.length} vehicles
+                  </p>
+                )}
+              </div>
               <CardContent>
                 <Table>
                   <TableHeader>
@@ -690,57 +756,65 @@ function AdminDashboardContent() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {cars.map((car) => {
-                      const driver = drivers.find(d => d.carId === car.id);
-                      return (
-                      <TableRow key={car.id} className="cursor-pointer hover:bg-gray-50" onClick={() => setSelectedVehicleId(car.id)}>
-                        <TableCell className="font-medium">
-                          {car.id} • {car.plateNumber}
-                        </TableCell>
-                        <TableCell>
-                          <Link href={`/admin/cars/${encodeURIComponent(car.plateNumber)}?from=vehicles`} className="text-blue-600 hover:underline">
-                            {car.assignedDriver}
-                          </Link>
-                        </TableCell>
-                        <TableCell>
-                          {driver?.phone || 'N/A'}
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={car.gpsStatus === 'online' ? 'default' : 'destructive'} className="flex items-center gap-1 w-fit">
-                            <MapPin className="h-3 w-3" />
-                            {car.gpsStatus}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Fuel className="h-4 w-4 text-blue-500" />
-                            <span className={car.fuelLevel < 30 ? 'text-red-600' : car.fuelLevel < 60 ? 'text-yellow-600' : 'text-green-600'}>
-                              {car.fuelLevel}%
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge 
-                            variant={car.maintenanceStatus === 'good' ? 'default' : car.maintenanceStatus === 'due' ? 'secondary' : 'destructive'}
-                            className="flex items-center gap-1 w-fit"
-                          >
-                            <Wrench className="h-3 w-3" />
-                            {car.maintenanceStatus}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-red-600 font-medium">{car.violationsCount}</div>
-                          <div className="text-gray-500 text-sm">/ {car.accidentsCount} acc</div>
-                        </TableCell>
-                        <TableCell>
-                          <div className={car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'}>
-                            {formatCurrency(car.budgetSpent)}
-                          </div>
-                          <div className="text-gray-500 text-sm">/ {formatCurrency(car.budgetAllocated)}</div>
+                    {filteredCars.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                          {vehiclesSearchTerm ? `No vehicles found matching "${vehiclesSearchTerm}"` : 'No vehicles available'}
                         </TableCell>
                       </TableRow>
-                      );
-                    })}
+                    ) : (
+                      filteredCars.map((car) => {
+                        const driver = drivers.find(d => d.carId === car.id);
+                        return (
+                        <TableRow key={car.id} className="cursor-pointer hover:bg-gray-50" onClick={() => setSelectedVehicleId(car.id)}>
+                          <TableCell className="font-medium">
+                            {car.id} • {car.plateNumber}
+                          </TableCell>
+                          <TableCell>
+                            <Link href={`/admin/cars/${encodeURIComponent(car.plateNumber)}?from=vehicles`} className="text-blue-600 hover:underline">
+                              {car.assignedDriver}
+                            </Link>
+                          </TableCell>
+                          <TableCell>
+                            {driver?.phone || 'N/A'}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant={car.gpsStatus === 'online' ? 'default' : 'destructive'} className="flex items-center gap-1 w-fit">
+                              <MapPin className="h-3 w-3" />
+                              {car.gpsStatus}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Fuel className="h-4 w-4 text-blue-500" />
+                              <span className={car.fuelLevel < 30 ? 'text-red-600' : car.fuelLevel < 60 ? 'text-yellow-600' : 'text-green-600'}>
+                                {car.fuelLevel}%
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant={car.maintenanceStatus === 'good' ? 'default' : car.maintenanceStatus === 'due' ? 'secondary' : 'destructive'}
+                              className="flex items-center gap-1 w-fit"
+                            >
+                              <Wrench className="h-3 w-3" />
+                              {car.maintenanceStatus}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="text-red-600 font-medium">{car.violationsCount}</div>
+                            <div className="text-gray-500 text-sm">/ {car.accidentsCount} acc</div>
+                          </TableCell>
+                          <TableCell>
+                            <div className={car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'}>
+                              {formatCurrency(car.budgetSpent)}
+                            </div>
+                            <div className="text-gray-500 text-sm">/ {formatCurrency(car.budgetAllocated)}</div>
+                          </TableCell>
+                        </TableRow>
+                        );
+                      })
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -1100,76 +1174,102 @@ function AdminDashboardContent() {
                 </CardTitle>
                 <CardDescription>Detailed view of all drivers and their vehicle assignments</CardDescription>
               </CardHeader>
+              <div className="px-6 pb-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search by Driver ID, Name, Email, or Phone..."
+                    value={driversSearchTerm}
+                    onChange={(e) => setDriversSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                {driversSearchTerm && (
+                  <p className="text-sm text-gray-600 mt-2">
+                    Showing {filteredDrivers.length} of {drivers.length} drivers
+                  </p>
+                )}
+              </div>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Driver ID</TableHead>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Phone</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Assigned Vehicle</TableHead>
-                      <TableHead>Project</TableHead>
-                      <TableHead>Manager</TableHead>
-                      <TableHead>License Expiry</TableHead>
-                      <TableHead>Violations</TableHead>
-                    </TableRow>
-                  </TableHeader>
+                <div className="overflow-x-auto">
+                  <Table className="text-sm">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-16">ID</TableHead>
+                        <TableHead className="w-32">Name</TableHead>
+                        <TableHead className="w-28">Phone</TableHead>
+                        <TableHead className="w-40">Email</TableHead>
+                        <TableHead className="w-24">Vehicle</TableHead>
+                        <TableHead className="w-24">Project</TableHead>
+                        <TableHead className="w-24">Manager</TableHead>
+                        <TableHead className="w-20">Expiry</TableHead>
+                        <TableHead className="w-16">Violations</TableHead>
+                      </TableRow>
+                    </TableHeader>
                   <TableBody>
-                    {drivers.map((driver) => {
-                      const assignedCar = cars.find(c => c.id === driver.carId);
-                      return (
-                        <TableRow key={driver.id} className="cursor-pointer hover:bg-gray-50" onClick={() => setSelectedDriverId(driver.id)}>
-                          <TableCell className="font-medium">
-                            {driver.id}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-3">
-                              <Avatar className="h-8 w-8">
-                                <AvatarFallback>{driver.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                              </Avatar>
-                              <Link href={`/admin/cars/${encodeURIComponent(assignedCar?.plateNumber || '')}?from=all-drivers`} className="text-blue-600 hover:underline font-medium">
-                                {driver.name}
-                              </Link>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            {driver.phone}
-                          </TableCell>
-                          <TableCell>
-                            {driver.email}
-                          </TableCell>
-                          <TableCell>
-                            {assignedCar ? (
-                              <Link href={`/admin/cars/${encodeURIComponent(assignedCar.plateNumber)}`} className="text-blue-600 hover:underline">
-                                {assignedCar.plateNumber}
-                              </Link>
-                            ) : (
-                              <span className="text-gray-500">No vehicle assigned</span>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {driver.assignedProject}
-                          </TableCell>
-                          <TableCell>
-                            {driver.manager}
-                          </TableCell>
-                          <TableCell>
-                            <div className={new Date(driver.licenseExpiry) < new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) ? 'text-red-600' : 'text-green-600'}>
-                              {new Date(driver.licenseExpiry).toLocaleDateString()}
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <div className="text-center">
-                              <div className="text-red-600 font-semibold">{driver.totalViolations}</div>
-                              <div className="text-xs text-gray-500">violations</div>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
+                    {filteredDrivers.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={9} className="text-center py-8 text-gray-500">
+                          {driversSearchTerm ? `No drivers found matching "${driversSearchTerm}"` : 'No drivers available'}
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      filteredDrivers.map((driver) => {
+                        const assignedCar = cars.find(c => c.id === driver.carId);
+                        return (
+                          <TableRow key={driver.id} className="cursor-pointer hover:bg-gray-50" onClick={() => setSelectedDriverId(driver.id)}>
+                            <TableCell className="font-medium text-xs">
+                              {driver.id}
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-1">
+                                <Avatar className="h-5 w-5">
+                                  <AvatarFallback className="text-xs">{driver.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                                </Avatar>
+                                <Link href={`/admin/cars/${encodeURIComponent(assignedCar?.plateNumber || '')}?from=all-drivers`} className="text-blue-600 hover:underline text-xs">
+                                  {driver.name}
+                                </Link>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-xs">
+                              {driver.phone}
+                            </TableCell>
+                            <TableCell className="text-xs truncate">
+                              {driver.email}
+                            </TableCell>
+                            <TableCell>
+                              {assignedCar ? (
+                                <Link href={`/admin/cars/${encodeURIComponent(assignedCar.plateNumber)}`} className="text-blue-600 hover:underline text-xs">
+                                  {assignedCar.plateNumber}
+                                </Link>
+                              ) : (
+                                <span className="text-gray-500 text-xs">No vehicle</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-xs truncate">
+                              {driver.assignedProject}
+                            </TableCell>
+                            <TableCell className="text-xs truncate">
+                              {driver.manager}
+                            </TableCell>
+                            <TableCell>
+                              <div className={`text-xs ${new Date(driver.licenseExpiry) < new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) ? 'text-red-600' : 'text-green-600'}`}>
+                                {new Date(driver.licenseExpiry).toLocaleDateString()}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="text-center">
+                                <div className="text-red-600 font-semibold text-xs">{driver.totalViolations}</div>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    )}
                   </TableBody>
-                </Table>
+                  </Table>
+                </div>
               </CardContent>
             </Card>
           </div>
