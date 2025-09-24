@@ -29,7 +29,7 @@ import Link from 'next/link';
 import { Car as CarType, Driver, FleetSummary, Notification, ChartData, KmData } from '@/types/fleet';
 
 // Mock data - in a real app, this would come from an API
-const fleetSummary: FleetSummary = {
+const vichelsSummary: FleetSummary = {
   totalCars: 45,
   carsInMaintenance: 7,
   accidentsReported: 3,
@@ -40,7 +40,7 @@ const cars: CarType[] = [
   {
     id: '1',
     plateNumber: 'ABC-123',
-    owner: 'Company Fleet',
+    owner: 'Company Vichels',
     assignedDriver: 'John Doe',
     gpsStatus: 'online',
     fuelLevel: 85,
@@ -62,7 +62,7 @@ const cars: CarType[] = [
   {
     id: '2',
     plateNumber: 'XYZ-456',
-    owner: 'Company Fleet',
+    owner: 'Company Vichels',
     assignedDriver: 'Jane Smith',
     gpsStatus: 'offline',
     fuelLevel: 25,
@@ -84,7 +84,7 @@ const cars: CarType[] = [
   {
     id: '3',
     plateNumber: 'DEF-789',
-    owner: 'Company Fleet',
+    owner: 'Company Vichels',
     assignedDriver: 'Mike Johnson',
     gpsStatus: 'online',
     fuelLevel: 60,
@@ -232,7 +232,7 @@ function AdminDashboardContent() {
     model: '',
     year: '',
     type: '',
-    owner: 'Company Fleet',
+    owner: 'Company Vichels',
     assignedDriver: '',
     latitude: '',
     longitude: '',
@@ -261,9 +261,9 @@ function AdminDashboardContent() {
   // Mock users data
   const users = {
     drivers: [
-      { id: '1', name: 'John Doe', email: 'john.doe@company.com', phone: '+1-555-0101', role: 'Driver', department: 'Fleet Operations', hireDate: '2023-01-15', salary: '45000', status: 'active' as const },
-      { id: '2', name: 'Jane Smith', email: 'jane.smith@company.com', phone: '+1-555-0102', role: 'Driver', department: 'Fleet Operations', hireDate: '2023-03-20', salary: '45000', status: 'active' as const },
-      { id: '3', name: 'Mike Johnson', email: 'mike.johnson@company.com', phone: '+1-555-0103', role: 'Driver', department: 'Fleet Operations', hireDate: '2022-11-10', salary: '45000', status: 'active' as const }
+      { id: '1', name: 'John Doe', email: 'john.doe@company.com', phone: '+1-555-0101', role: 'Driver', department: 'Vichels Operations', hireDate: '2023-01-15', salary: '45000', status: 'active' as const },
+      { id: '2', name: 'Jane Smith', email: 'jane.smith@company.com', phone: '+1-555-0102', role: 'Driver', department: 'Vichels Operations', hireDate: '2023-03-20', salary: '45000', status: 'active' as const },
+      { id: '3', name: 'Mike Johnson', email: 'mike.johnson@company.com', phone: '+1-555-0103', role: 'Driver', department: 'Vichels Operations', hireDate: '2022-11-10', salary: '45000', status: 'active' as const }
     ],
     finance: [
       { id: '4', name: 'Sarah Wilson', email: 'sarah.wilson@company.com', phone: '+1-555-0201', role: 'Finance Manager', department: 'Finance', hireDate: '2022-05-01', salary: '75000', status: 'active' as const },
@@ -392,8 +392,8 @@ function AdminDashboardContent() {
         <div>
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Fleet Management Dashboard</h1>
-            <p className="text-gray-600 mt-2">Monitor and manage your entire fleet from one place</p>
+            <h1 className="text-3xl font-bold text-gray-900">Vichels Management Dashboard</h1>
+            <p className="text-gray-600 mt-2">Monitor and manage your entire vichels from one place</p>
           </div>
 
           {activeView === 'overview' && (
@@ -404,8 +404,8 @@ function AdminDashboardContent() {
               <Car className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{fleetSummary.totalCars}</div>
-              <p className="text-xs text-muted-foreground">Active fleet vehicles</p>
+              <div className="text-2xl font-bold">{vichelsSummary.totalCars}</div>
+              <p className="text-xs text-muted-foreground">Active vichels vehicles</p>
             </CardContent>
           </Card>
 
@@ -415,7 +415,7 @@ function AdminDashboardContent() {
               <Settings className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">{fleetSummary.carsInMaintenance}</div>
+              <div className="text-2xl font-bold text-orange-600">{vichelsSummary.carsInMaintenance}</div>
               <p className="text-xs text-muted-foreground">Cars currently serviced</p>
             </CardContent>
           </Card>
@@ -426,7 +426,7 @@ function AdminDashboardContent() {
               <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{fleetSummary.accidentsReported}</div>
+              <div className="text-2xl font-bold text-red-600">{vichelsSummary.accidentsReported}</div>
               <p className="text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
@@ -437,7 +437,7 @@ function AdminDashboardContent() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">{formatCurrency(fleetSummary.totalCostThisMonth)}</div>
+              <div className="text-2xl font-bold text-green-600">{formatCurrency(vichelsSummary.totalCostThisMonth)}</div>
               <p className="text-xs text-muted-foreground">This month</p>
             </CardContent>
           </Card>
@@ -452,9 +452,9 @@ function AdminDashboardContent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Car className="h-5 w-5" />
-                  Fleet Overview
+                  Vichels Overview
                 </CardTitle>
-                <CardDescription>Detailed view of all fleet vehicles</CardDescription>
+                <CardDescription>Detailed view of all vichels vehicles</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -586,7 +586,7 @@ function AdminDashboardContent() {
                 <FileText className="h-5 w-5" />
                 Quick Actions
               </CardTitle>
-              <CardDescription>Manage fleet operations</CardDescription>
+              <CardDescription>Manage vichels operations</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Button className="w-full justify-start" variant="outline">
@@ -603,7 +603,7 @@ function AdminDashboardContent() {
               </Button>
               <Button className="w-full justify-start" variant="outline">
                 <Settings className="h-4 w-4 mr-2" />
-                Fleet Settings
+                Vichels Settings
               </Button>
             </CardContent>
           </Card>
@@ -616,7 +616,7 @@ function AdminDashboardContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5" />
-                Monthly Fleet Cost Trends
+                Monthly Vichels Cost Trends
               </CardTitle>
               <CardDescription>Track spending patterns over time</CardDescription>
             </CardHeader>
@@ -663,17 +663,17 @@ function AdminDashboardContent() {
         {activeView === 'vehicles' && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Fleet Overview</h2>
-              <p className="text-gray-600">Detailed view of all fleet vehicles</p>
+              <h2 className="text-2xl font-bold text-gray-900">Vichels Overview</h2>
+              <p className="text-gray-600">Detailed view of all vichels vehicles</p>
             </div>
             
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Car className="h-5 w-5" />
-                  Fleet Overview
+                  Vichels Overview
                 </CardTitle>
-                <CardDescription>Detailed view of all fleet vehicles</CardDescription>
+                <CardDescription>Detailed view of all vichels vehicles</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -1182,7 +1182,7 @@ function AdminDashboardContent() {
               <div className="flex items-center justify-between gap-2">
                 <div>
                   <CardTitle>Drivers</CardTitle>
-                  <CardDescription>All drivers in the fleet</CardDescription>
+                  <CardDescription>All drivers in the vichels</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => setShowAddDriverForm(!showAddDriverForm)}>
                   <Plus className="h-4 w-4 mr-1" /> add driver
@@ -1402,7 +1402,7 @@ function AdminDashboardContent() {
                       value={newUser.department}
                       onChange={(e) => setNewUser({...newUser, department: e.target.value})}
                       className="w-full px-2 py-1 text-sm border rounded"
-                      placeholder="Fleet Operations"
+                      placeholder="Vichels Operations"
                     />
                   </div>
                   <div>

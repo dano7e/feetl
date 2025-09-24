@@ -62,7 +62,7 @@ export default function FleetMap({ cars }: FleetMapProps) {
               <div className="space-y-1">
                 <div className="font-medium">{car.plateNumber}</div>
                 <div className="text-sm text-gray-600">{car.driverName}</div>
-                <a className="text-blue-600 text-sm hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}`}>View details</a>
+                <a className="text-blue-600 text-sm hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}?from=map`}>View details</a>
               </div>
             </Popup>
           </Marker>

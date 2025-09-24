@@ -129,6 +129,8 @@ function CarDetailsPageContent({ params }: { params: Promise<{ slug: string }> }
         return '/admin?view=vehicles';
       case 'all-drivers':
         return '/admin?view=all-drivers';
+      case 'map':
+        return '/admin?view=map';
       default:
         return '/admin'; // Default fallback
     }

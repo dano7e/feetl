@@ -1,18 +1,13 @@
 "use client";
 
-import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 
-// Fix default icon paths for Leaflet when bundled
-// @ts-expect-error Leaflet type for private method not exposed; safe to delete prototype property
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: typeof window !== 'undefined' ? '/leaflet/marker-icon-2x.png' : undefined,
-  iconUrl: typeof window !== 'undefined' ? '/leaflet/marker-icon.png' : undefined,
-  shadowUrl: typeof window !== 'undefined' ? '/leaflet/marker-shadow.png' : undefined,
-});
+// Dynamically import the map components with SSR disabled
+const MapContainer = dynamic(() => import('react-leaflet').then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then((mod) => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
 
 interface CarMapProps {
   latitude: number;
@@ -20,13 +15,46 @@ interface CarMapProps {
   label?: string;
 }
 
-export default function CarMap({ latitude, longitude, label = 'Car Location' }: CarMapProps) {
+function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMapProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    
+    // Initialize Leaflet icons only on client side
+    if (typeof window !== 'undefined') {
+      import('leaflet').then((L) => {
+        // Fix default icon paths for Leaflet when bundled
+        // @ts-expect-error Leaflet type for private method not exposed; safe to delete prototype property
+        delete L.default.Icon.Default.prototype._getIconUrl;
+        L.default.Icon.Default.mergeOptions({
+          iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+          iconUrl: '/leaflet/marker-icon.png',
+          shadowUrl: '/leaflet/marker-shadow.png',
+        });
+
+        // Import Leaflet CSS
+        import('leaflet/dist/leaflet.css');
+      });
+    }
+  }, []);
+
   // Prevent map layout issues when container first appears
   useEffect(() => {
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 50);
-  }, []);
+    if (isClient) {
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 50);
+    }
+  }, [isClient]);
+
+  if (!isClient) {
+    return (
+      <div className="h-72 w-full overflow-hidden rounded-lg border flex items-center justify-center bg-gray-100">
+        <div className="text-gray-500">Loading map...</div>
+      </div>
+    );
+  }
 
   const position: [number, number] = [latitude, longitude];
 
@@ -44,3 +72,6 @@ export default function CarMap({ latitude, longitude, label = 'Car Location' }: 
     </div>
   );
 }
+
+// Export the component wrapped with dynamic import
+export default dynamic(() => Promise.resolve(CarMapComponent), { ssr: false });
