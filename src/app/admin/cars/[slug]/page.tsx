@@ -172,17 +172,17 @@ function CarDetailsPageContent({ params }: { params: Promise<{ slug: string }> }
   );
 
   return (
-    <div className="min-h-screen bg-gray-50/30 p-6">
-      <div className="mx-auto max-w-6xl space-y-6">
-        <div className="flex items-start justify-between gap-4">
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <CarIcon className="h-5 w-5" /> Car • {car.plateNumber}
+    <div className="min-h-screen bg-gray-50/30 p-3 sm:p-6">
+      <div className="mx-auto max-w-6xl space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <CarIcon className="h-4 w-4 sm:h-5 sm:w-5" /> Car • {car.plateNumber}
           </h1>
           <BackButton fallbackHref={getFallbackUrl()} label="Go Back" />
         </div>
-        <p className="text-gray-600">{car.make} {car.model} {car.year} • {car.type}</p>
+        <p className="text-sm sm:text-base text-gray-600">{car.make} {car.model} {car.year} • {car.type}</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Driver Card */}
           <Card className="lg:col-span-1">
             <CardHeader>
@@ -190,19 +190,19 @@ function CarDetailsPageContent({ params }: { params: Promise<{ slug: string }> }
             </CardHeader>
             <CardContent>
               {driver ? (
-                <div className="flex items-start gap-4">
-                  <Avatar className="h-16 w-16">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                  <Avatar className="h-12 w-12 sm:h-16 sm:w-16">
                     <AvatarImage src="" alt="" />
-                    <AvatarFallback>No image</AvatarFallback>
+                    <AvatarFallback className="text-xs">No image</AvatarFallback>
                   </Avatar>
-                  <div className="space-y-1">
-                    <p className="font-medium">{driver.name}</p>
-                    <p className="text-sm text-gray-600">{driver.email}</p>
-                    <p className="text-sm text-gray-600">{driver.phone}</p>
+                  <div className="space-y-1 flex-1">
+                    <p className="font-medium text-sm sm:text-base">{driver.name}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 truncate">{driver.email}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">{driver.phone}</p>
                     <p className="text-xs text-gray-500">Project: {driver.assignedProject}</p>
                     <p className="text-xs text-gray-500">Manager: {driver.manager}</p>
                     <p className="text-xs text-gray-500">License Expiry: {new Date(driver.licenseExpiry).toLocaleDateString()}</p>
-                    <Badge variant={driver.totalViolations > 0 ? 'destructive' : 'default'}>
+                    <Badge variant={driver.totalViolations > 0 ? 'destructive' : 'default'} className="text-xs">
                       {driver.totalViolations} violations
                     </Badge>
                   </div>
@@ -210,8 +210,9 @@ function CarDetailsPageContent({ params }: { params: Promise<{ slug: string }> }
               ) : (
                 <p className="text-sm text-gray-600">No driver assigned.</p>
               )}
-              <Button className="w-full mt-6" variant="outline">
-                <FileText className="h-4 w-4 mr-2" /> Report Incident
+              <Button className="w-full mt-4 sm:mt-6" variant="outline" size="sm">
+                <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-2" /> 
+                <span className="text-xs sm:text-sm">Report Incident</span>
               </Button>
             </CardContent>
           </Card>
@@ -224,52 +225,52 @@ function CarDetailsPageContent({ params }: { params: Promise<{ slug: string }> }
             <CardContent className="space-y-4">
               {typeof car.latitude === 'number' && typeof car.longitude === 'number' && (
                 <div>
-                  <div className="text-sm text-gray-600 mb-2">GPS Tracking</div>
+                  <div className="text-xs sm:text-sm text-gray-600 mb-2">GPS Tracking</div>
                   <CarMap latitude={car.latitude!} longitude={car.longitude!} label={`Plate ${car.plateNumber}`} />
                 </div>
               )}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <div className="flex items-center gap-2 text-sm text-gray-600"><MapPin className="h-4 w-4" /> GPS</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><MapPin className="h-3 w-3 sm:h-4 sm:w-4" /> GPS</div>
                   <div className="mt-1">{statusBadge(car.gpsStatus, car.gpsStatus === 'online' ? 'default' : 'destructive')}</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="flex items-center gap-2 text-sm text-gray-600"><Fuel className="h-4 w-4" /> Fuel</div>
-                  <div className={`mt-1 ${car.fuelLevel < 30 ? 'text-red-600' : 'text-green-600'}`}>{car.fuelLevel}%</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><Fuel className="h-3 w-3 sm:h-4 sm:w-4" /> Fuel</div>
+                  <div className={`mt-1 text-sm sm:text-base ${car.fuelLevel < 30 ? 'text-red-600' : 'text-green-600'}`}>{car.fuelLevel}%</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="flex items-center gap-2 text-sm text-gray-600"><Wrench className="h-4 w-4" /> Maintenance</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><Wrench className="h-3 w-3 sm:h-4 sm:w-4" /> Maintenance</div>
                   <div className="mt-1">{statusBadge(car.maintenanceStatus, car.maintenanceStatus === 'overdue' ? 'destructive' : car.maintenanceStatus === 'due' ? 'secondary' : 'default')}</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="flex items-center gap-2 text-sm text-gray-600"><AlertTriangle className="h-4 w-4" /> Violations / Accidents</div>
-                  <div className="mt-1 text-sm"><span className="text-red-600 font-semibold">{car.violationsCount}</span> / {car.accidentsCount} accidents</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600"><AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4" /> Violations / Accidents</div>
+                  <div className="mt-1 text-xs sm:text-sm"><span className="text-red-600 font-semibold">{car.violationsCount}</span> / {car.accidentsCount} accidents</div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <div className="text-sm text-gray-600">Budget Spent</div>
-                  <div className={`${car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'} font-medium`}>{formatCurrency(car.budgetSpent)}</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="text-xs sm:text-sm text-gray-600">Budget Spent</div>
+                  <div className={`${car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'} font-medium text-sm sm:text-base`}>{formatCurrency(car.budgetSpent)}</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="text-sm text-gray-600">Budget Allocated</div>
-                  <div className="text-gray-800 font-medium">{formatCurrency(car.budgetAllocated)}</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="text-xs sm:text-sm text-gray-600">Budget Allocated</div>
+                  <div className="text-gray-800 font-medium text-sm sm:text-base">{formatCurrency(car.budgetAllocated)}</div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg">
-                  <div className="text-sm text-gray-600">Last Service Date</div>
-                  <div className="text-gray-800 font-medium">{new Date(car.lastServiceDate).toLocaleDateString()}</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="text-xs sm:text-sm text-gray-600">Last Service Date</div>
+                  <div className="text-gray-800 font-medium text-sm sm:text-base">{new Date(car.lastServiceDate).toLocaleDateString()}</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="text-sm text-gray-600">Insurance Expiry</div>
-                  <div className="text-gray-800 font-medium">{new Date(car.insuranceExpiry).toLocaleDateString()}</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="text-xs sm:text-sm text-gray-600">Insurance Expiry</div>
+                  <div className="text-gray-800 font-medium text-sm sm:text-base">{new Date(car.insuranceExpiry).toLocaleDateString()}</div>
                 </div>
-                <div className="p-4 border rounded-lg">
-                  <div className="text-sm text-gray-600">License Expiry</div>
-                  <div className="text-gray-800 font-medium">{new Date(car.licenseExpiry).toLocaleDateString()}</div>
+                <div className="p-3 sm:p-4 border rounded-lg">
+                  <div className="text-xs sm:text-sm text-gray-600">License Expiry</div>
+                  <div className="text-gray-800 font-medium text-sm sm:text-base">{new Date(car.licenseExpiry).toLocaleDateString()}</div>
                 </div>
               </div>
             </CardContent>

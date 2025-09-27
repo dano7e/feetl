@@ -48,8 +48,8 @@ function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMap
 
   if (!isClient || !MapComponents) {
     return (
-      <div className="h-72 w-full overflow-hidden rounded-lg border flex items-center justify-center bg-gray-100">
-        <div className="text-gray-500">Loading map...</div>
+      <div className="h-48 sm:h-72 w-full overflow-hidden rounded-lg border flex items-center justify-center bg-gray-100 relative z-0">
+        <div className="text-gray-500 text-sm">Loading map...</div>
       </div>
     );
   }
@@ -58,14 +58,14 @@ function CarMapComponent({ latitude, longitude, label = 'Car Location' }: CarMap
   const position: [number, number] = [latitude, longitude];
 
   return (
-    <div className="h-72 w-full overflow-hidden rounded-lg border">
-      <MapContainer center={position} zoom={13} scrollWheelZoom className="h-full w-full">
+    <div className="h-48 sm:h-72 w-full overflow-hidden rounded-lg border relative z-0">
+      <MapContainer center={position} zoom={13} scrollWheelZoom className="h-full w-full relative z-0">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position}>
-          <Popup>{label}</Popup>
+          <Popup className="text-sm">{label}</Popup>
         </Marker>
       </MapContainer>
     </div>

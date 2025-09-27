@@ -32,18 +32,18 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-center">تسجيل المدير</CardTitle>
-          <CardDescription className="text-center">
+          <CardTitle className="text-center text-lg sm:text-xl">تسجيل المدير</CardTitle>
+          <CardDescription className="text-center text-sm">
             إنشاء حساب مدير جديد
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
+              <label htmlFor="email" className="text-xs sm:text-sm font-medium">
                 عنوان البريد الإلكتروني
               </label>
               <Input
@@ -53,10 +53,11 @@ const Page = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="text-sm"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
+              <label htmlFor="password" className="text-xs sm:text-sm font-medium">
                 كلمة المرور
               </label>
               <Input
@@ -66,10 +67,11 @@ const Page = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="text-sm"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-sm font-medium">
+              <label htmlFor="confirmPassword" className="text-xs sm:text-sm font-medium">
                 تأكيد كلمة المرور
               </label>
               <Input
@@ -79,11 +81,12 @@ const Page = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
+                className="text-sm"
               />
             </div>
           </CardContent>
-          <CardFooter className="pt-6">
-            <Button type="submit" className="w-full">
+          <CardFooter className="pt-4 sm:pt-6">
+            <Button type="submit" className="w-full text-sm sm:text-base">
               تسجيل المدير
             </Button>
           </CardFooter>

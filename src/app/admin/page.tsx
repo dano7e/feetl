@@ -23,7 +23,9 @@ import {
   Calendar,
   FileText,
   Plus,
-  Search
+  Search,
+  Menu,
+  X
 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import dynamic from 'next/dynamic';
@@ -342,24 +344,42 @@ function AdminDashboardContent() {
     }
   };
 
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-50/30 p-6">
-      <div className="mx-auto max-w-7xl grid grid-cols-1 xl:grid-cols-[260px_1fr] gap-6">
-        {/* Sidebar */}
-        <aside className="hidden xl:block">
-          <Card className="sticky top-6">
-            <CardHeader>
-              <CardTitle>القائمة</CardTitle>
-              <CardDescription>اختر قسم</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Button variant={activeView === 'overview' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('overview')}>
+    <div className="min-h-screen bg-gray-50/30 p-3 sm:p-6">
+      <div className="mx-auto max-w-7xl">
+        {/* Mobile Sidebar Overlay - Transparent */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 z-[9998] xl:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
+        {/* Mobile Sidebar */}
+        <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-[9999] xl:hidden ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold">القائمة</h2>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setSidebarOpen(false)}
+                className="p-2"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="space-y-2">
+              <Button variant={activeView === 'overview' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('overview'); setSidebarOpen(false);}}>
                 نظرة عامة
               </Button>
-              <Button variant={activeView === 'map' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('map')}>
+              <Button variant={activeView === 'map' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('map'); setSidebarOpen(false);}}>
                 خريطة المركبات المباشرة
               </Button>
-              <Button variant={activeView === 'analysis' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('analysis')}>
+              <Button variant={activeView === 'analysis' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('analysis'); setSidebarOpen(false);}}>
                 التحليل
               </Button>
               <div className="pt-2">
@@ -369,13 +389,13 @@ function AdminDashboardContent() {
                 </Button>
                 {vehiclesMenuOpen && (
                   <div className="mt-2 space-y-2">
-                    <Button variant={activeView === 'vehicles' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles')}>
+                    <Button variant={activeView === 'vehicles' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('vehicles'); setSidebarOpen(false);}}>
                       جميع المركبات
                     </Button>
-                    <Button variant={activeView === 'vehicles-coupe' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-coupe')}>
+                    <Button variant={activeView === 'vehicles-coupe' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('vehicles-coupe'); setSidebarOpen(false);}}>
                       مركبات السيدان
                     </Button>
-                    <Button variant={activeView === 'vehicles-truck' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-truck')}>
+                    <Button variant={activeView === 'vehicles-truck' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('vehicles-truck'); setSidebarOpen(false);}}>
                       مركبات الشحن
                     </Button>
                   </div>
@@ -388,10 +408,10 @@ function AdminDashboardContent() {
                 </Button>
                 {driversMenuOpen && (
                   <div className="mt-2 space-y-2">
-                    <Button variant={activeView === 'all-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('all-drivers')}>
+                    <Button variant={activeView === 'all-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('all-drivers'); setSidebarOpen(false);}}>
                       جميع السائقين
                     </Button>
-                    <Button variant={activeView === 'drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('drivers')}>
+                    <Button variant={activeView === 'drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('drivers'); setSidebarOpen(false);}}>
                       إدارة السائقين
                     </Button>
                   </div>
@@ -404,32 +424,121 @@ function AdminDashboardContent() {
                 </Button>
                 {usersMenuOpen && (
                   <div className="mt-2 space-y-2">
-                    <Button variant={activeView === 'users-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-drivers')}>
+                    <Button variant={activeView === 'users-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('users-drivers'); setSidebarOpen(false);}}>
                       مستخدمي السائقين
                     </Button>
-                    <Button variant={activeView === 'users-finance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-finance')}>
+                    <Button variant={activeView === 'users-finance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('users-finance'); setSidebarOpen(false);}}>
                       موظف المالية
                     </Button>
-                    <Button variant={activeView === 'users-maintenance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-maintenance')}>
+                    <Button variant={activeView === 'users-maintenance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => {setActiveView('users-maintenance'); setSidebarOpen(false);}}>
                       عامل الصيانة
                     </Button>
                   </div>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        </aside>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[260px_1fr] gap-6">
+          {/* Desktop Sidebar */}
+          <aside className="hidden xl:block">
+            <Card className="sticky top-6">
+              <CardHeader>
+                <CardTitle>القائمة</CardTitle>
+                <CardDescription>اختر قسم</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Button variant={activeView === 'overview' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('overview')}>
+                  نظرة عامة
+                </Button>
+                <Button variant={activeView === 'map' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('map')}>
+                  خريطة المركبات المباشرة
+                </Button>
+                <Button variant={activeView === 'analysis' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('analysis')}>
+                  التحليل
+                </Button>
+                <div className="pt-2">
+                  <Button variant={vehiclesMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setVehiclesMenuOpen(!vehiclesMenuOpen)}>
+                    المركبات
+                    <span className="text-xs opacity-70">{vehiclesMenuOpen ? '▾' : '▸'}</span>
+                  </Button>
+                  {vehiclesMenuOpen && (
+                    <div className="mt-2 space-y-2">
+                      <Button variant={activeView === 'vehicles' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles')}>
+                        جميع المركبات
+                      </Button>
+                      <Button variant={activeView === 'vehicles-coupe' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-coupe')}>
+                        مركبات السيدان
+                      </Button>
+                      <Button variant={activeView === 'vehicles-truck' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('vehicles-truck')}>
+                        مركبات الشحن
+                      </Button>
+                    </div>
+                  )}
+                </div>
+                <div className="pt-2">
+                  <Button variant={driversMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setDriversMenuOpen(!driversMenuOpen)}>
+                    السائقين
+                    <span className="text-xs opacity-70">{driversMenuOpen ? '▾' : '▸'}</span>
+                  </Button>
+                  {driversMenuOpen && (
+                    <div className="mt-2 space-y-2">
+                      <Button variant={activeView === 'all-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('all-drivers')}>
+                        جميع السائقين
+                      </Button>
+                      <Button variant={activeView === 'drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('drivers')}>
+                        إدارة السائقين
+                      </Button>
+                    </div>
+                  )}
+                </div>
+                <div className="pt-2">
+                  <Button variant={usersMenuOpen ? 'default' : 'outline'} className="w-full justify-between" onClick={() => setUsersMenuOpen(!usersMenuOpen)}>
+                    إدارة المستخدمين
+                    <span className="text-xs opacity-70">{usersMenuOpen ? '▾' : '▸'}</span>
+                  </Button>
+                  {usersMenuOpen && (
+                    <div className="mt-2 space-y-2">
+                      <Button variant={activeView === 'users-drivers' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-drivers')}>
+                        مستخدمي السائقين
+                      </Button>
+                      <Button variant={activeView === 'users-finance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-finance')}>
+                        موظف المالية
+                      </Button>
+                      <Button variant={activeView === 'users-maintenance' ? 'default' : 'outline'} className="w-full justify-start" onClick={() => setActiveView('users-maintenance')}>
+                        عامل الصيانة
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </aside>
 
         {/* Main Content */}
         <div>
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">لوحة تحكم إدارة المركبات</h1>
-            <p className="text-gray-600 mt-2">راقب وأدر مركباتك بالكامل من مكان واحد</p>
+          <div className="mb-6 sm:mb-8">
+            <div className="flex items-center gap-4">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => setSidebarOpen(true)}
+                className="xl:hidden flex items-center gap-2"
+              >
+                <Menu className="h-4 w-4" />
+                <span>القائمة</span>
+              </Button>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">لوحة تحكم إدارة المركبات</h1>
+                <p className="text-sm sm:text-base text-gray-600 mt-2">راقب وأدر مركباتك بالكامل من مكان واحد</p>
+              </div>
+            </div>
           </div>
 
           {activeView === 'overview' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">إجمالي المركبات</CardTitle>
@@ -477,65 +586,71 @@ function AdminDashboardContent() {
         )}
 
         {activeView === 'overview' && (
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Main Cars Table */}
           <div className="xl:col-span-3">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Car className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Car className="h-4 w-4 sm:h-5 sm:w-5" />
                   نظرة عامة على المركبات
                 </CardTitle>
-                <CardDescription>عرض مفصل لجميع مركبات الشركة</CardDescription>
+                <CardDescription className="text-sm">عرض مفصل لجميع مركبات الشركة</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>رقم المركبة / اللوحة</TableHead>
-                      <TableHead>السائق</TableHead>
-                      <TableHead>حالة GPS</TableHead>
-                      <TableHead>الوقود</TableHead>
-                      <TableHead>الصيانة</TableHead>
-                      <TableHead>المخالفات</TableHead>
-                      <TableHead>الميزانية</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {cars.map((car) => (
-                      <TableRow key={car.id}>
-                        <TableCell className="font-medium">{car.id} • {car.plateNumber}</TableCell>
-                        <TableCell><a className="text-blue-600 hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}`}>{car.assignedDriver}</a></TableCell>
-                        <TableCell>{getStatusBadge(car.gpsStatus, 'gps')}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Fuel className="h-4 w-4 text-blue-500" />
-                            <span className={car.fuelLevel < 30 ? 'text-red-600' : 'text-green-600'}>
-                              {car.fuelLevel}%
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{getStatusBadge(car.maintenanceStatus, 'maintenance')}</TableCell>
-                        <TableCell>
-                          <div className="text-center">
-                            <div className="text-red-600 font-semibold">{car.violationsCount}</div>
-                            <div className="text-xs text-gray-500">/ {car.accidentsCount} acc</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            <div className={car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'}>
-                              {formatCurrency(car.budgetSpent)}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              / {formatCurrency(car.budgetAllocated)}
-                            </div>
-                          </div>
-                        </TableCell>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs sm:text-sm">رقم المركبة / اللوحة</TableHead>
+                        <TableHead className="text-xs sm:text-sm">السائق</TableHead>
+                        <TableHead className="text-xs sm:text-sm hidden sm:table-cell">حالة GPS</TableHead>
+                        <TableHead className="text-xs sm:text-sm">الوقود</TableHead>
+                        <TableHead className="text-xs sm:text-sm hidden md:table-cell">الصيانة</TableHead>
+                        <TableHead className="text-xs sm:text-sm hidden lg:table-cell">المخالفات</TableHead>
+                        <TableHead className="text-xs sm:text-sm hidden lg:table-cell">الميزانية</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {cars.map((car) => (
+                        <TableRow key={car.id}>
+                          <TableCell className="font-medium text-xs sm:text-sm">{car.id} • {car.plateNumber}</TableCell>
+                          <TableCell className="text-xs sm:text-sm">
+                            <a className="text-blue-600 hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}`}>
+                              {car.assignedDriver}
+                            </a>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">{getStatusBadge(car.gpsStatus, 'gps')}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-1 sm:gap-2">
+                              <Fuel className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500" />
+                              <span className={`text-xs sm:text-sm ${car.fuelLevel < 30 ? 'text-red-600' : 'text-green-600'}`}>
+                                {car.fuelLevel}%
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">{getStatusBadge(car.maintenanceStatus, 'maintenance')}</TableCell>
+                          <TableCell className="hidden lg:table-cell">
+                            <div className="text-center">
+                              <div className="text-red-600 font-semibold text-xs sm:text-sm">{car.violationsCount}</div>
+                              <div className="text-xs text-gray-500">/ {car.accidentsCount} acc</div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden lg:table-cell">
+                            <div className="text-xs sm:text-sm">
+                              <div className={car.budgetSpent > car.budgetAllocated ? 'text-red-600' : 'text-green-600'}>
+                                {formatCurrency(car.budgetSpent)}
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                / {formatCurrency(car.budgetAllocated)}
+                              </div>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -544,14 +659,14 @@ function AdminDashboardContent() {
           <div className="xl:col-span-1">
             <Card className="h-fit">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                  <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
                   التنبيهات والإشعارات
                 </CardTitle>
-                <CardDescription>تنبيهات النظام الأخيرة</CardDescription>
+                <CardDescription className="text-sm">تنبيهات النظام الأخيرة</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="max-h-96 overflow-y-auto space-y-3 pr-2">
+                <div className="max-h-64 sm:max-h-96 overflow-y-auto space-y-3 pr-2">
                   {notifications && notifications.length > 0 ? notifications.map((notification) => {
                     try {
                       return (
@@ -591,32 +706,32 @@ function AdminDashboardContent() {
         )}
 
         {activeView === 'overview' && (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <Users className="h-4 w-4 sm:h-5 sm:w-5" />
                 إدارة السائقين
               </CardTitle>
-              <CardDescription>السائقون النشطون وتخصيصاتهم</CardDescription>
+              <CardDescription className="text-sm">السائقون النشطون وتخصيصاتهم</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {drivers.map((driver) => (
-                  <div key={driver.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center space-x-4">
-                      <Avatar>
+                  <div key={driver.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 border rounded-lg gap-3 sm:gap-0">
+                    <div className="flex items-center space-x-3 sm:space-x-4">
+                      <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
                         <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${driver.name}`} />
-                        <AvatarFallback>{driver.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback className="text-xs">{driver.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                       </Avatar>
-                      <div>
-                        <p className="font-medium">{driver.name}</p>
-                        <p className="text-sm text-gray-600">{driver.assignedProject}</p>
-                        <p className="text-xs text-gray-500">المدير: {driver.manager}</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-sm sm:text-base truncate">{driver.name}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 truncate">{driver.assignedProject}</p>
+                        <p className="text-xs text-gray-500 truncate">المدير: {driver.manager}</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <Badge variant={driver.totalViolations > 0 ? 'destructive' : 'default'}>
+                    <div className="text-right sm:text-right">
+                      <Badge variant={driver.totalViolations > 0 ? 'destructive' : 'default'} className="text-xs">
                         {driver.totalViolations} مخالفات
                       </Badge>
                       <p className="text-xs text-gray-500 mt-1">
@@ -631,28 +746,28 @@ function AdminDashboardContent() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 إجراءات سريعة
               </CardTitle>
-              <CardDescription>إدارة عمليات المركبات</CardDescription>
+              <CardDescription className="text-sm">إدارة عمليات المركبات</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <Button className="w-full justify-start" variant="outline">
-                <Calendar className="h-4 w-4 mr-2" />
-                جدولة الصيانة
+            <CardContent className="space-y-3 sm:space-y-4">
+              <Button className="w-full justify-start" variant="outline" size="sm">
+                <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                <span className="text-xs sm:text-sm">جدولة الصيانة</span>
               </Button>
-              <Button className="w-full justify-start" variant="outline">
-                <Users className="h-4 w-4 mr-2" />
-                تعيين سائق جديد
+              <Button className="w-full justify-start" variant="outline" size="sm">
+                <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                <span className="text-xs sm:text-sm">تعيين سائق جديد</span>
               </Button>
-              <Button className="w-full justify-start" variant="outline">
-                <AlertTriangle className="h-4 w-4 mr-2" />
-                الإبلاغ عن حادث
+              <Button className="w-full justify-start" variant="outline" size="sm">
+                <AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                <span className="text-xs sm:text-sm">الإبلاغ عن حادث</span>
               </Button>
-              <Button className="w-full justify-start" variant="outline">
-                <Settings className="h-4 w-4 mr-2" />
-                إعدادات المركبات
+              <Button className="w-full justify-start" variant="outline" size="sm">
+                <Settings className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
+                <span className="text-xs sm:text-sm">إعدادات المركبات</span>
               </Button>
             </CardContent>
           </Card>
@@ -660,24 +775,24 @@ function AdminDashboardContent() {
         )}
 
         {activeView === 'analysis' && (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" />
                 اتجاهات التكلفة الشهرية للمركبات
               </CardTitle>
-              <CardDescription>تتبع أنماط الإنفاق عبر الوقت</CardDescription>
+              <CardDescription className="text-sm">تتبع أنماط الإنفاق عبر الوقت</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={costTrends}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis tickFormatter={(value) => `$${value.toLocaleString()}`} />
+                  <XAxis dataKey="month" fontSize={12} />
+                  <YAxis tickFormatter={(value) => `$${value.toLocaleString()}`} fontSize={12} />
                   <Tooltip formatter={(value) => [formatCurrency(value as number), 'Cost']} />
                   <Legend />
-                  <Line type="monotone" dataKey="cost" stroke="#2563eb" strokeWidth={3} />
+                  <Line type="monotone" dataKey="cost" stroke="#2563eb" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -685,18 +800,18 @@ function AdminDashboardContent() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5" />
                 الكيلومترات المقطوعة مقابل وقت التوقف
               </CardTitle>
-              <CardDescription>تحليل استغلال المركبات</CardDescription>
+              <CardDescription className="text-sm">تحليل استغلال المركبات</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={kmData}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="car" />
-                  <YAxis />
+                  <XAxis dataKey="car" fontSize={12} />
+                  <YAxis fontSize={12} />
                   <Tooltip />
                   <Legend />
                   <Bar dataKey="driven" fill="#22c55e" name="KM Driven" />
@@ -826,10 +941,10 @@ function AdminDashboardContent() {
         <div className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MapPin className="h-5 w-5" /> خريطة المركبات المباشرة
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5" /> خريطة المركبات المباشرة
               </CardTitle>
-              <CardDescription>تتبع جميع السائقين والمركبات بسرعة</CardDescription>
+              <CardDescription className="text-sm">تتبع جميع السائقين والمركبات بسرعة</CardDescription>
             </CardHeader>
             <CardContent>
               <FleetMap cars={cars
@@ -849,7 +964,7 @@ function AdminDashboardContent() {
 
         {/* Vehicles - Coupe */}
         {activeView === 'vehicles-coupe' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1004,7 +1119,7 @@ function AdminDashboardContent() {
 
         {/* Vehicles - Truck */}
         {activeView === 'vehicles-truck' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1272,7 +1387,7 @@ function AdminDashboardContent() {
         )}
 
         {activeView === 'drivers' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1435,7 +1550,7 @@ function AdminDashboardContent() {
 
         {/* Users Management - Drivers */}
         {activeView === 'users-drivers' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1587,7 +1702,7 @@ function AdminDashboardContent() {
 
         {/* Users Management - Finance */}
         {activeView === 'users-finance' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1739,7 +1854,7 @@ function AdminDashboardContent() {
 
         {/* Users Management - Maintenance */}
         {activeView === 'users-maintenance' && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           <Card className="xl:col-span-1">
             <CardHeader>
               <div className="flex items-center justify-between gap-2">
@@ -1888,6 +2003,7 @@ function AdminDashboardContent() {
           </Card>
         </div>
         )}
+        </div>
         </div>
       </div>
     </div>

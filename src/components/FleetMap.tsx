@@ -50,8 +50,8 @@ export default function FleetMap({ cars }: FleetMapProps) {
   }), []);
 
   return (
-    <div className="h-[420px] w-full overflow-hidden rounded-lg border">
-      <MapContainer center={center} zoom={6} scrollWheelZoom className="h-full w-full">
+    <div className="h-[300px] sm:h-[420px] w-full overflow-hidden rounded-lg border relative z-0">
+      <MapContainer center={center} zoom={6} scrollWheelZoom className="h-full w-full relative z-0">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -60,9 +60,9 @@ export default function FleetMap({ cars }: FleetMapProps) {
           <Marker key={car.id} position={[car.latitude, car.longitude]} icon={car.status === 'online' ? onlineIcon : offlineIcon}>
             <Popup>
               <div className="space-y-1">
-                <div className="font-medium">{car.plateNumber}</div>
-                <div className="text-sm text-gray-600">{car.driverName}</div>
-                <a className="text-blue-600 text-sm hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}?from=map`}>View details</a>
+                <div className="font-medium text-sm">{car.plateNumber}</div>
+                <div className="text-xs text-gray-600">{car.driverName}</div>
+                <a className="text-blue-600 text-xs hover:underline" href={`/admin/cars/${encodeURIComponent(car.plateNumber)}?from=map`}>View details</a>
               </div>
             </Popup>
           </Marker>
