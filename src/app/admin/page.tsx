@@ -344,7 +344,6 @@ function AdminDashboardContent() {
     }
   };
 
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   return (
